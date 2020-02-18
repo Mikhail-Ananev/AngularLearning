@@ -22,6 +22,11 @@ import { ItemComponent } from './components/item/item.component';
     ItemsListComponent,
     ItemComponent
   ],
+  exports:[
+    HeaderComponent,
+    FooterComponent,
+    MainComponent
+  ],
   imports: [
     CommonModule
   ]
