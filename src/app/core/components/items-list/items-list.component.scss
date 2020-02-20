@@ -1,0 +1,22 @@
+.items {
+    width: 100%;
+
+    &_add-button {
+        width: 100%;
+        text-align: right;
+        margin-bottom: 12px;
+
+        input {
+            width: 138px;
+            height: 36px;
+            border-radius: 3px;
+            border: solid 1px #d9dbe3;
+            background-color: #30b6dd;
+        }
+    }
+
+    &_list {
+        display: flex;
+        flex-direction: column;
+    }
+}

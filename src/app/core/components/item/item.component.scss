@@ -1,0 +1,27 @@
+.item {
+    width: 100%;
+    border-radius: 5px;
+    border: 2px solid grey;
+    display: flex;
+
+    &_content {
+        width: 70%;
+        margin-top: 24px;
+        margin-left: 24px;
+
+        &__header {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        &__text {
+            margin-left: 24px;
+        }
+    }
+
+    &_button-block {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+}
