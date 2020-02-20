@@ -7,15 +7,16 @@ import { CourseInfo } from '../../models/interfaces';
   styleUrls: ['./item.component.scss']
 })
 export class ItemComponent implements OnInit, CourseInfo {
+  id: number;
+  title: string;
+  creationDate: Date;
+  duration: number;
+  description: string;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  id: Number;
-  title: String;
-  creationDate: Date;
-  duration: Number;
-  description: String;
+
 }

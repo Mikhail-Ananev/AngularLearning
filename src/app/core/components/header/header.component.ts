@@ -7,13 +7,13 @@ import { User } from '../../models/interfaces';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit, User {
+  id: number;
+  firstName: string;
+  lastName: string;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  id: Number;
-  firstName: String;
-  lastName: String;
 }
