@@ -1,6 +1,13 @@
 .items {
     width: 100%;
 
+    .fa-plus {
+        color: white;
+        position: absolute;
+        margin-top: 12px;
+        margin-left: 12px;
+    }
+
     &_add-button {
         width: 100%;
         text-align: right;
@@ -12,6 +19,8 @@
             border-radius: 3px;
             border: solid 1px #d9dbe3;
             background-color: #30b6dd;
+            color: white;
+            font-size: 14px;
         }
     }
 

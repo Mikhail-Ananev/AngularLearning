@@ -1,27 +1,74 @@
 .item {
     width: 100%;
     border-radius: 5px;
+    background-color: white;
     border: 2px solid grey;
     display: flex;
+    margin-bottom: 24px;
+    padding-bottom: 18px;
 
     &_content {
         width: 70%;
-        margin-top: 24px;
         margin-left: 24px;
 
         &__header {
             display: flex;
             justify-content: space-between;
+
+            .item-name {
+                font-size: 24px;
+                font-weight: 600;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+
+            .item-info {
+                display: flex;
+                width: 20%;
+                flex-wrap: nowrap;
+                justify-content: space-between;
+                align-items: center;
+                color: grey;
+            }
         }
 
         &__text {
-            margin-left: 24px;
+            margin-left: 0;
         }
     }
 
     &_button-block {
         display: flex;
+        width: 29%;
         justify-content: space-evenly;
         align-items: center;
+        margin-top: 20px;
+        
+        .fa-edit,
+        .fa-trash {
+            color: white;
+            position: absolute;
+            margin-left: 8px;
+        }
+
+        .fa-edit {
+            margin-top: 6px;
+        }
+
+        .fa-trash {
+            margin-top: 5px;
+        }
+
+        input {
+            width: 75px;
+            height: 24px;
+            border-radius: 3px;
+            border: solid 1px #d9dbe3;
+            background-color: #30b6dd;
+            color: white;
+            font-size: 14px;
+            padding-left: 20px;
+        }
     }
 }
