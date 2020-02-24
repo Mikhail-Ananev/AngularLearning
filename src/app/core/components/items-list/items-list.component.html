@@ -3,7 +3,15 @@
         <i class="fa fa-plus"></i>
         <input type="button" value="Add item"/>
     </div>
-    <div class="items_list">
-        <app-item></app-item>
+    <div class="items_list items_container" *ngFor="let course of courses">
+        <app-item
+            [course]="course"
+            (deleteEvent)="deleteCourseById($event)"
+            (editEvent)="editCourseById($event)"
+        >
+        </app-item>
+    </div>
+    <div class="items_load-more items_container">
+        <a href="#">Load more</a>
     </div>
 </div>

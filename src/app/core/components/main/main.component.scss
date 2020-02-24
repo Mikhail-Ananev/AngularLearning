@@ -1,8 +1,16 @@
 main {
-    position: absolute;
-    top: 64px;
-    bottom: 64px;
-    left: 0;
-    right: 0;
+    margin: 0 auto;
     background-color: #f2f3f7;
+    height: 100%;
+    position: relative;
+
+    header {
+        position: sticky;
+        top: 0;
+    }
+
+    // footer {
+    //     position: sticky;
+    //     bottom: 0;
+    // }
 }

@@ -1,10 +1,5 @@
 .item {
-    width: 100%;
-    border-radius: 5px;
-    background-color: white;
-    border: 2px solid grey;
     display: flex;
-    margin-bottom: 24px;
     padding-bottom: 18px;
 
     &_content {
@@ -25,7 +20,7 @@
 
             .item-info {
                 display: flex;
-                width: 20%;
+                width: 25%;
                 flex-wrap: nowrap;
                 justify-content: space-between;
                 align-items: center;

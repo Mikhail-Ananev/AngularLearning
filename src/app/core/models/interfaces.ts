@@ -1,13 +1,13 @@
 export interface CourseInfo {
-    id: Number;
-    title: String;
+    id: number;
+    title: string;
     creationDate: Date;
-    duration: Number;
-    description: String;
+    duration: number;
+    description: string;
 }
 
 export interface User {
-    id: Number;
-    firstName: String;
-    lastName: String;
+    id: number;
+    firstName: string;
+    lastName: string;
 }

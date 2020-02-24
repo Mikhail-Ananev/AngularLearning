@@ -1,0 +1,33 @@
+{
+    "courses": [
+        {
+            "id": 1,
+            "title": "First course",
+            "creationDate": "01.12.86",
+            "duration": 90,
+            "description": "Sass imports have the same syntax as CSS imports, except that they allow multiple imports to be separated by commas rather than requiring each one to have its own @import. Also, in the indented syntax, imported URLs aren’t required to have quotes."
+        },
+        {
+            "id": 2,
+            "title": "First course",
+            "creationDate": "01.12.86",
+            "duration": 90,
+            "description": "Sass imports have the same syntax as CSS imports, except that they allow multiple imports to be separated by commas rather than requiring each one to have its own @import. Also, in the indented syntax, imported URLs aren’t required to have quotes."
+        },
+        {
+            "id": 3,
+            "title": "First course",
+            "creationDate": "01.12.86",
+            "duration": 90,
+            "description": "Sass imports have the same syntax as CSS imports, except that they allow multiple imports to be separated by commas rather than requiring each one to have its own @import. Also, in the indented syntax, imported URLs aren’t required to have quotes."
+        },
+        {
+            "id": 4,
+            "title": "First course",
+            "creationDate": "01.12.86",
+            "duration": 90,
+            "description": "Sass imports have the same syntax as CSS imports, except that they allow multiple imports to be separated by commas rather than requiring each one to have its own @import. Also, in the indented syntax, imported URLs aren’t required to have quotes."
+        }
+
+    ]
+}

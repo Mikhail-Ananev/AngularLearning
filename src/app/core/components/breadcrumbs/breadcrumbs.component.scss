@@ -1,4 +1,13 @@
 nav {
     height: 64px;
+    width: 100%;
     background-color: white;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    a {
+        text-decoration: inherit;
+        color: inherit;
+    }
 }

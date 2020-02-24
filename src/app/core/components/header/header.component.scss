@@ -1,8 +1,17 @@
 header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
     height: 64px;
     background-color: #414452;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 85px;
+    padding-right: 85px;
+
+    .user-container {
+        display: flex;
+        justify-content: space-between;
+   
+        width: 15%;
+        color: white;
+    }
 }

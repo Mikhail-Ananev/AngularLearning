@@ -28,4 +28,19 @@
         display: flex;
         flex-direction: column;
     }
+
+    &_container{
+        width: 100%;
+        border-radius: 5px;
+        background-color: white;
+        border: 2px solid grey;
+        margin-bottom: 24px;
+    }
+
+    &_load-more {
+        height: 48px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
