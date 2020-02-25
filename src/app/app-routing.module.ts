@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SearchPanelComponent } from './components/search-panel/search-panel.component';
-import { ItemsListComponent } from './components/items-list/items-list.component';
+import { ContentComponent } from './core/components/content/content.component';
 
 const routes: Routes = [
   {
@@ -11,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'Course',
-    component: [MainComponent]
+    component: ContentComponent
   }
 ];
 
@@ -21,4 +20,4 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 
-export const routingComponents = [MainComponent];
+export const routingComponents = [ContentComponent];

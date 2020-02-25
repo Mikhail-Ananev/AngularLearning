@@ -1,17 +1,21 @@
 header {
     height: 64px;
     background-color: #414452;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-left: 85px;
-    padding-right: 85px;
 
-    .user-container {
+    .header-container {
         display: flex;
+        height: 100%;
+        margin: 0 auto;
         justify-content: space-between;
-   
-        width: 15%;
-        color: white;
+        align-items: center;
+        max-width: 1100px;
+
+        .user-container {
+            display: flex;
+            justify-content: space-between;
+       
+            width: 15%;
+            color: white;
+        }
     }
 }

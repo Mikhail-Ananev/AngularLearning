@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CourseInfo } from '../../models/interfaces';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+
 @Component({
   selector: 'app-item',
   templateUrl: './item.component.html',
@@ -16,7 +16,7 @@ export class ItemComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.duration = new Date(0, 0, 0, 0, 0, 0, this.course.duration * 60 * 1000);
+    this.duration = new Date(0, 0, 0, 0, 0, this.course.duration);
   }
 
   deleteCourse(id: number) {

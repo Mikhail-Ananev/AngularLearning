@@ -37,6 +37,10 @@
         margin-bottom: 24px;
     }
 
+    &_container:last-child {
+        margin-bottom: 0;
+    }
+
     &_load-more {
         height: 48px;
         display: flex;
