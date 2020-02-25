@@ -3,8 +3,20 @@
         <i class="fa fa-plus"></i>
         <input type="button" value="Add item"/>
     </div>
-    <div class="items_list items_container" *ngFor="let course of courses">
+    <div  >
         <app-item
+            class="items_list items_container"
+            *ngFor="let course of courses"
+            [course]="course"
+            (deleteEvent)="deleteCourseById($event)"
+            (editEvent)="editCourseById($event)"
+        >
+        </app-item>
+    </div>
+    <div  >
+        <app-item
+            class="items_list items_container"
+            *ngFor="let course of courses"
             [course]="course"
             (deleteEvent)="deleteCourseById($event)"
             (editEvent)="editCourseById($event)"
