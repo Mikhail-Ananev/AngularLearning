@@ -8,6 +8,7 @@ import { CourseInfo } from '../../models/interfaces';
 })
 export class ItemComponent implements OnInit {
   duration: Date;
+
   @Input() course: CourseInfo;
 
   @Output() deleteEvent = new EventEmitter<number>();
@@ -16,7 +17,7 @@ export class ItemComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.duration = new Date(0, 0, 0, 0, 0, this.course.duration);
+    this.duration = new Date(this.course.duration * 60 * 1000);
   }
 
   deleteCourse(id: number) {
