@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search-panel.component.scss']
 })
 export class SearchPanelComponent implements OnInit {
-  searchString: string = "";
+  searchString = '';
 
   constructor() { }
 
@@ -14,6 +14,6 @@ export class SearchPanelComponent implements OnInit {
   }
 
   startSearch(str: string) {
-    console.log("You try to search: " + str);
+    console.log('You try to search: ' + str);
   }
 }

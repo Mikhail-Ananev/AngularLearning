@@ -12,7 +12,7 @@ import { SearchPanelComponent } from './components/search-panel/search-panel.com
 import { ItemsListComponent } from './components/items-list/items-list.component';
 import { ItemComponent } from './components/item/item.component';
 
-import { AppRoutingModule, routingComponents } from './../app-routing.module';
+import { AppRoutingModule } from './../app-routing.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +25,7 @@ import { AppRoutingModule, routingComponents } from './../app-routing.module';
     ItemsListComponent,
     ItemComponent
   ],
-  exports:[
+  exports: [
     HeaderComponent,
     FooterComponent,
     MainComponent

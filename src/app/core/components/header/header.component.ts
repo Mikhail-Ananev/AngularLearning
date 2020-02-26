@@ -13,10 +13,9 @@ export class HeaderComponent implements OnInit, User {
   lastName: string;
   faSignOutAlt = faSignOutAlt;
   faUser = faUser;
-  
+
   constructor() { }
 
   ngOnInit(): void {
   }
-
 }
