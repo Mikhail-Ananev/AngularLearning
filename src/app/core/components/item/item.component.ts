@@ -7,25 +7,25 @@ import { CourseInfo } from '../../models/interfaces';
   styleUrls: ['./item.component.scss']
 })
 export class ItemComponent implements OnInit {
-  duration: Date;
+  public duration: Date;
 
-  @Input() course: CourseInfo;
+  @Input() public course: CourseInfo;
 
-  @Output() deleteEvent = new EventEmitter<number>();
-  @Output() editEvent = new EventEmitter<number>();
+  @Output() private deleteEvent = new EventEmitter<number>();
+  @Output() private editEvent = new EventEmitter<number>();
 
   constructor() { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.duration = new Date(this.course.duration * 60 * 1000);
   }
 
-  deleteCourse(id: number) {
+  public deleteCourse(id: number) {
     this.deleteEvent.emit(id);
     console.log(`The course with ID \"${id}\" were deleted`);
   }
 
-  editCourse(id: number) {
+  public editCourse(id: number) {
     this.editEvent.emit(id);
   }
 }

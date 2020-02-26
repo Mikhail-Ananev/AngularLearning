@@ -8,14 +8,14 @@ import { faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit, User {
-  id: number;
-  firstName: string;
-  lastName: string;
-  faSignOutAlt = faSignOutAlt;
-  faUser = faUser;
+  public id: number;
+  public firstName: string;
+  public lastName: string;
+  public faSignOutAlt = faSignOutAlt;
+  public faUser = faUser;
 
   constructor() { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
   }
 }

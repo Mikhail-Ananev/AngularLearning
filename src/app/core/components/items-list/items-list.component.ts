@@ -8,11 +8,11 @@ import { CourseInfo } from '../../models/interfaces';
   styleUrls: ['./items-list.component.scss']
 })
 export class ItemsListComponent implements OnInit {
-  courses: Array<CourseInfo>;
+  public courses: Array<CourseInfo>;
 
   constructor() { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.courses = COURSES.slice();
   }
 
