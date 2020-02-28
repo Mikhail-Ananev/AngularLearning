@@ -1,0 +1,32 @@
+<div class="item items_container">
+    <div class="item_content">
+        <div class="item_content__header">
+            <div class="item-name">
+                {{course.title}} {{course.id}}
+            </div>
+            <div class="item-info">
+                <span>
+                    <i class="fa fa-clock-o"></i>
+                    {{duration.getUTCHours()}}h {{duration.getMinutes()}}min
+                </span>
+                <span>
+                    <i class="fa fa-calendar"></i>
+                    {{course.creationDate | date:"d MMM, yyyy"}}
+                </span>
+            </div>
+        </div>
+        <div class="item_content__text">
+            {{course.description}}
+        </div>
+    </div>
+    <div class="item_button-block">
+        <div>
+            <i class="fa fa-edit"></i>
+            <input type="button" value="Edit"  (click)="editCourse(course.id)"/>
+        </div>
+        <div>
+            <i class="fa fa-trash"></i>
+            <input type="button" value="Delete" (click)="deleteCourse(course.id)" />
+        </div>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+.items {
+    width: 100%;
+
+    .fa-plus {
+        color: white;
+        position: absolute;
+        margin-top: 12px;
+        margin-left: 12px;
+    }
+
+    &_add-button {
+        width: 100%;
+        text-align: right;
+        margin-bottom: 12px;
+
+        input {
+            width: 138px;
+            height: 36px;
+            border-radius: 3px;
+            border: solid 1px #d9dbe3;
+            background-color: #30b6dd;
+            color: white;
+            font-size: 14px;
+        }
+    }
+
+    &_list {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &_container{
+        width: 100%;
+        border-radius: 5px;
+        background-color: white;
+        border: 2px solid grey;
+        margin-bottom: 24px;
+    }
+
+    &_container:last-child {
+        margin-bottom: 0;
+    }
+
+    &_load-more {
+        height: 48px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
