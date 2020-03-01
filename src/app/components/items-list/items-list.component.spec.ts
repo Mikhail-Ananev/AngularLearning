@@ -1,3 +1,4 @@
+import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ItemsListComponent } from './items-list.component';
@@ -8,7 +9,7 @@ describe('ItemsListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ItemsListComponent ]
+      declarations: [ ItemsListComponent, MockItemComponent ]
     })
     .compileComponents();
   }));
@@ -23,3 +24,10 @@ describe('ItemsListComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+@Component({
+  selector: 'app-item',
+  template: ''
+})
+class MockItemComponent {
+}

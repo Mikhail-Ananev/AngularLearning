@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgForm } from '@angular/forms';
 
 import { SearchPanelComponent } from './search-panel.component';
 
@@ -8,7 +9,7 @@ describe('SearchPanelComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SearchPanelComponent ]
+      declarations: [ SearchPanelComponent, NgForm ]
     })
     .compileComponents();
   }));
@@ -16,10 +17,29 @@ describe('SearchPanelComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchPanelComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+
+    component.ngOnInit();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+  
+  it('should search write string value', () => {
+    const str = 'House';
+    component.searchString = str;
+
+    spyOn(component, 'startSearch');
+    let button  = fixture.debugElement.nativeElement.querySelector('input[type=button]');
+    button.click();
+    
+    expect(component.startSearch).toHaveBeenCalledWith(str);
+  });
+
+  it('should call search function', () => {
+    spyOn(component, 'startSearch');
+    component.startSearch('');
+
+    expect(component.startSearch).toHaveBeenCalled();
   });
 });

@@ -1,3 +1,4 @@
+import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HeaderComponent } from './header.component';
@@ -8,7 +9,7 @@ describe('HeaderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HeaderComponent ]
+      declarations: [ HeaderComponent, MockFaComponent ],
     })
     .compileComponents();
   }));
@@ -23,3 +24,10 @@ describe('HeaderComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+@Component({
+  selector: 'fa-icon',
+  template: ''
+})
+class MockFaComponent {
+}
