@@ -6,7 +6,7 @@ import { ItemComponent } from './item.component';
 describe('ItemComponent', () => {
   let component: ItemComponent;
   let fixture: ComponentFixture<ItemComponent>;
-  const course: CourseInfo = {
+  const mockCourse: CourseInfo = {
     id: 1,
     title: 'Video course',
     creationDate: new Date(1988, 2, 25),
@@ -24,7 +24,7 @@ describe('ItemComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ItemComponent);
     component = fixture.componentInstance;
-    component.course = course;
+    component.course = mockCourse;
 
     component.ngOnInit();
   });
@@ -34,12 +34,12 @@ describe('ItemComponent', () => {
   });
 
   it('contains relevant info', () => {
-    expect(component.course).toEqual(course);
+    expect(component.course).toEqual(mockCourse);
   });
 
   it('should call delete function', (done: DoneFn) => {
     component.deleteEvent.subscribe((id: number) => {
-      expect(id).toBe(course.id);
+      expect(id).toBe(mockCourse.id);
       done();
     })
 
@@ -49,7 +49,7 @@ describe('ItemComponent', () => {
 
   it('should call edit function', (done: DoneFn) => {
     component.editEvent.subscribe((id: number) => {
-      expect(id).toBe(course.id);
+      expect(id).toBe(mockCourse.id);
       done();
     })
 
