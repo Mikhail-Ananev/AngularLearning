@@ -1,11 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { CourseInfo } from '../../models/interfaces';
 import { ItemComponent } from './item.component';
 
 describe('ItemComponent', () => {
   let component: ItemComponent;
   let fixture: ComponentFixture<ItemComponent>;
-  let course =   {
+  const course: CourseInfo = {
     id: 1,
     title: 'Video course',
     creationDate: new Date(1988, 2, 25),
@@ -36,21 +37,23 @@ describe('ItemComponent', () => {
     expect(component.course).toEqual(course);
   });
 
-  it('should call delete function', () => {
-    spyOn(component, 'deleteCourse');
+  it('should call delete function', (done: DoneFn) => {
+    component.deleteEvent.subscribe((id: number) => {
+      expect(id).toBe(course.id);
+      done();
+    })
+
     let button  = fixture.debugElement.nativeElement.querySelector('input[value=Delete]');
     button.click();
-    
-    expect(component.deleteCourse).toHaveBeenCalled();
-    expect(component.deleteCourse).toHaveBeenCalledWith(course.id);
   });
 
-  it('should call edit function', () => {
-    spyOn(component, 'editCourse');
+  it('should call edit function', (done: DoneFn) => {
+    component.editEvent.subscribe((id: number) => {
+      expect(id).toBe(course.id);
+      done();
+    })
+
     let button  = fixture.debugElement.nativeElement.querySelector('input[value=Edit]');
     button.click();
-    
-    expect(component.editCourse).toHaveBeenCalled();
-    expect(component.editCourse).toHaveBeenCalledWith(course.id);
   });
 });
