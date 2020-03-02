@@ -3,6 +3,20 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ContentComponent } from './content.component';
 
+@Component({
+  selector: 'app-search-panel',
+  template: ''
+})
+class MockSearchPanelComponent {
+}
+
+@Component({
+  selector: 'app-items-list',
+  template: ''
+})
+class MockItemsListComponent {
+}
+
 describe('ContentComponent', () => {
   let component: ContentComponent;
   let fixture: ComponentFixture<ContentComponent>;
@@ -28,17 +42,3 @@ describe('ContentComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-
-@Component({
-  selector: 'app-search-panel',
-  template: ''
-})
-class MockSearchPanelComponent {
-}
-
-@Component({
-  selector: 'app-items-list',
-  template: ''
-})
-class MockItemsListComponent {
-}

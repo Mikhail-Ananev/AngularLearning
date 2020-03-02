@@ -24,15 +24,15 @@ describe('SearchPanelComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  
+
   it('should search write string value', () => {
     const str = 'House';
     component.searchString = str;
 
     spyOn(component, 'startSearch');
-    let button  = fixture.debugElement.nativeElement.querySelector('input[type=button]');
+    const button  = fixture.debugElement.nativeElement.querySelector('input[type=button]');
     button.click();
-    
+
     expect(component.startSearch).toHaveBeenCalledWith(str);
   });
 

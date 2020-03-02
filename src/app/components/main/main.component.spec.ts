@@ -3,6 +3,35 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MainComponent } from './main.component';
 
+@Component({
+  selector: 'app-header',
+  template: ''
+})
+class MockHeaderComponent {
+}
+
+@Component({
+  selector: 'app-breadcrumbs',
+  template: ''
+})
+class MockBreadcrumbsComponent {
+}
+
+@Component({
+  // tslint:disable-next-line: component-selector
+  selector: 'router-outlet',
+  template: ''
+})
+class MocRouterOutletComponent {
+}
+
+@Component({
+  selector: 'app-footer',
+  template: ''
+})
+class MockFooterComponent {
+}
+
 describe('MainComponent', () => {
   let component: MainComponent;
   let fixture: ComponentFixture<MainComponent>;
@@ -30,31 +59,3 @@ describe('MainComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-
-@Component({
-  selector: 'app-header',
-  template: ''
-})
-class MockHeaderComponent {
-}
-
-@Component({
-  selector: 'app-breadcrumbs',
-  template: ''
-})
-class MockBreadcrumbsComponent {
-}
-
-@Component({
-  selector: 'router-outlet',
-  template: ''
-})
-class MocRouterOutletComponent {
-}
-
-@Component({
-  selector: 'app-footer',
-  template: ''
-})
-class MockFooterComponent {
-}

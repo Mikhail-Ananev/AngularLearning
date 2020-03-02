@@ -26,7 +26,7 @@ describe('ItemComponent', () => {
     component = fixture.componentInstance;
     component.course = mockCourse;
 
-    component.ngOnInit();
+    fixture.detectChanges();
   });
 
   it('should create', () => {
@@ -41,9 +41,9 @@ describe('ItemComponent', () => {
     component.deleteEvent.subscribe((id: number) => {
       expect(id).toBe(mockCourse.id);
       done();
-    })
+    });
 
-    let button  = fixture.debugElement.nativeElement.querySelector('input[value=Delete]');
+    const button  = fixture.debugElement.nativeElement.querySelector('input[value=Delete]');
     button.click();
   });
 
@@ -51,9 +51,9 @@ describe('ItemComponent', () => {
     component.editEvent.subscribe((id: number) => {
       expect(id).toBe(mockCourse.id);
       done();
-    })
+    });
 
-    let button  = fixture.debugElement.nativeElement.querySelector('input[value=Edit]');
+    const button  = fixture.debugElement.nativeElement.querySelector('input[value=Edit]');
     button.click();
   });
 });
