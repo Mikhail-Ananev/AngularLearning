@@ -15,6 +15,7 @@ import { ContentComponent } from './components/content/content.component';
 import { SearchPanelComponent } from './components/search-panel/search-panel.component';
 import { ItemsListComponent } from './components/items-list/items-list.component';
 import { ItemComponent } from './components/item/item.component';
+import { ItemBorderColorDirective } from './components/item/item-border-color.directive';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ItemComponent } from './components/item/item.component';
     ItemsListComponent,
     ItemComponent,
     MainComponent,
-    SearchPanelComponent
+    SearchPanelComponent,
+    ItemBorderColorDirective
   ],
   exports: [
     MainComponent
