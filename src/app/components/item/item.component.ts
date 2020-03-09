@@ -11,8 +11,8 @@ export class ItemComponent implements OnInit {
 
   @Input() public course: CourseInfo;
 
-  @Output() private deleteEvent = new EventEmitter<number>();
-  @Output() private editEvent = new EventEmitter<number>();
+  @Output() public deleteEvent = new EventEmitter<number>();
+  @Output() public editEvent = new EventEmitter<number>();
 
   constructor() { }
 

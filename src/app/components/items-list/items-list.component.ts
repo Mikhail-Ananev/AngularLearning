@@ -16,11 +16,11 @@ export class ItemsListComponent implements OnInit {
     this.courses = COURSES.slice();
   }
 
-  public deleteCourseById (id: number) {
+  public deleteCourseById(id: number) {
     this.courses = this.courses.filter(c => c.id !== id);
   }
 
-  public editCourseById (id: number) {
+  public editCourseById(id: number) {
     console.log('Here should be a method to edit course with ID: ' + id);
   }
 }
