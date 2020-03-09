@@ -4,7 +4,7 @@ const COURSES: CourseInfo[] = [
     {
         id: 1,
         title: 'Video course',
-        creationDate: new Date(1988, 2, 25),
+        creationDate: new Date(2020, 2, 8),
         duration: 75,
         description: 'Sass imports have the same syntax as CSS imports, except that they'
             + ' allow multiple imports to be separated by commas rather than requiring each one to have its own @import.'
