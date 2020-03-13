@@ -17,7 +17,6 @@ export class SearchPanelComponent implements OnInit {
   }
 
   public startSearch(str: string) {
-    console.log('You try to search: ' + str);
     this.searchEvent.emit(str);
   }
 }

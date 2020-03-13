@@ -2,8 +2,7 @@
     class="item items_container"
     [isItemFresh]="course.creationDate"
     [ngClass]="{
-        'item_favorite': course.topRated,
-        '': !course.topRated
+        'item_favorite': course.topRated
     }"
 >
     <div class="item_content">
