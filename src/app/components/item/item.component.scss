@@ -1,6 +1,12 @@
 .item {
     display: flex;
     padding-bottom: 18px;
+    border-radius: 5px;
+    border: 2px solid grey;
+
+    &_favorite {
+        background: lightgrey;
+    }
 
     &_content {
         width: 70%;
@@ -25,6 +31,10 @@
                 justify-content: space-between;
                 align-items: center;
                 color: grey;
+            }
+                    
+            .fa-star {
+                color: yellow;
             }
         }
 

@@ -5,13 +5,14 @@
     </div>
     <app-item
         class="items_list items_container"
-        *ngFor="let course of courses"
+        *ngFor="let course of courses | orderBy: searchString"
         [course]="course"
         (deleteEvent)="deleteCourseById($event)"
         (editEvent)="editCourseById($event)"
     >
     </app-item>
-    <div class="items_load-more items_container">
+    <div *ngIf="courses.length === 0" class="items_empty">NO DATA. FEEL FREE TO ADD NEW COURSE</div>
+    <div *ngIf="courses.length >= 4" class="items_empty">
         <a href="#">Load more</a>
     </div>
 </div>
