@@ -7,7 +7,7 @@ export class HoursMinutesPipe implements PipeTransform {
 
   transform(duration: number): string {
     if (duration < 60) {
-      return `${duration} min`;
+      return `${duration}min`;
     }
 
     const hours = Math.floor(duration / 60);

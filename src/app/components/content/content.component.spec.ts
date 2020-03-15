@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ContentComponent } from './content.component';
@@ -15,6 +15,7 @@ class MockSearchPanelComponent {
   template: ''
 })
 class MockItemsListComponent {
+  @Input() public searchString: string;
 }
 
 describe('ContentComponent', () => {
