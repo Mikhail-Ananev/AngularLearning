@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import COURSES from './mock-items';
 import { CourseInfo } from '../../models/interfaces';
+import { CoursesService } from 'src/app/services/courses.service';
 
 @Component({
   selector: 'app-items-list',
@@ -12,14 +12,15 @@ export class ItemsListComponent implements OnInit {
 
   @Input() public searchString: string;
 
-  constructor() { }
+  constructor(private coursesService: CoursesService) { }
 
   public ngOnInit(): void {
-    this.courses = COURSES.slice();
+    this.courses = this.coursesService.getCourses();
   }
 
   public deleteCourseById(id: number) {
-    this.courses = this.courses.filter(c => c.id !== id);
+    this.coursesService.deleteCourse(id);
+    this.courses = this.coursesService.getCourses();
   }
 
   public editCourseById(id: number) {
