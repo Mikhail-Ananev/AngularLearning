@@ -18,6 +18,7 @@ import { ItemComponent } from './components/item/item.component';
 import { IsItemFreshDirective } from './directives/is-item-fresh.directive';
 import { HoursMinutesPipe } from './pipes/hours-minutes.pipe';
 import { OrderByPipe } from './pipes/order-by.pipe';
+import { ConfirmDeleteComponent } from './components/confirm-delete/confirm-delete.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { OrderByPipe } from './pipes/order-by.pipe';
     SearchPanelComponent,
     IsItemFreshDirective,
     HoursMinutesPipe,
-    OrderByPipe
+    OrderByPipe,
+    ConfirmDeleteComponent
   ],
   exports: [
     MainComponent
