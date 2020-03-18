@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-search-panel',
@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class SearchPanelComponent implements OnInit {
   public searchString: string;
 
+  @Output() public searchEvent = new EventEmitter<string>();
+
   constructor() { }
 
   public ngOnInit(): void {
@@ -15,6 +17,6 @@ export class SearchPanelComponent implements OnInit {
   }
 
   public startSearch(str: string) {
-    console.log('You try to search: ' + str);
+    this.searchEvent.emit(str);
   }
 }

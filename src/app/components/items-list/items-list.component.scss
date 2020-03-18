@@ -31,20 +31,16 @@
 
     &_container{
         width: 100%;
-        border-radius: 5px;
         background-color: white;
-        border: 2px solid grey;
         margin-bottom: 24px;
     }
 
-    &_container:last-child {
-        margin-bottom: 0;
-    }
-
-    &_load-more {
+    &_empty {
         height: 48px;
         display: flex;
         justify-content: center;
         align-items: center;
+        border-radius: 5px;
+        border: 2px solid grey;
     }
 }

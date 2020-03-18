@@ -15,6 +15,9 @@ import { ContentComponent } from './components/content/content.component';
 import { SearchPanelComponent } from './components/search-panel/search-panel.component';
 import { ItemsListComponent } from './components/items-list/items-list.component';
 import { ItemComponent } from './components/item/item.component';
+import { IsItemFreshDirective } from './directives/is-item-fresh.directive';
+import { HoursMinutesPipe } from './pipes/hours-minutes.pipe';
+import { OrderByPipe } from './pipes/order-by.pipe';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,10 @@ import { ItemComponent } from './components/item/item.component';
     ItemsListComponent,
     ItemComponent,
     MainComponent,
-    SearchPanelComponent
+    SearchPanelComponent,
+    IsItemFreshDirective,
+    HoursMinutesPipe,
+    OrderByPipe
   ],
   exports: [
     MainComponent

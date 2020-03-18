@@ -1,13 +1,22 @@
-<div class="item items_container">
+<div
+    class="item items_container"
+    [isItemFresh]="course.creationDate"
+    [ngClass]="{
+        'item_favorite': course.topRated
+    }"
+>
     <div class="item_content">
         <div class="item_content__header">
             <div class="item-name">
-                {{course.title}} {{course.id}}
+                {{course.title | uppercase}}
+                <span *ngIf="course.topRated">
+                    <i class="fa fa-star"></i>
+                </span>
             </div>
             <div class="item-info">
                 <span>
                     <i class="fa fa-clock-o"></i>
-                    {{duration.getUTCHours()}}h {{duration.getMinutes()}}min
+                    {{course.duration | hoursMinutes}}
                 </span>
                 <span>
                     <i class="fa fa-calendar"></i>

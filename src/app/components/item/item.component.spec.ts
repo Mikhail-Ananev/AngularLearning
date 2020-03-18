@@ -1,11 +1,13 @@
 import { Component, DebugElement, OnInit } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+
+import { IsItemFreshDirective } from '../../directives/is-item-fresh.directive';
+import { HoursMinutesPipe } from '../../pipes/hours-minutes.pipe';
+import { ItemComponent } from './item.component';
 
 import { CourseInfo } from '../../models/interfaces';
-import { ItemComponent } from './item.component';
 import MOCKCOURSES from './test-mock-items';
-import { setupMaster } from 'cluster';
-import { By } from '@angular/platform-browser';
 
 @Component({
   template: `
@@ -39,6 +41,11 @@ class TestHostComponent implements OnInit {
 describe('ItemComponent', () => {
   let component: ItemComponent;
   let fixture: ComponentFixture<ItemComponent>;
+  let componentHost: TestHostComponent;
+  let fixtureHost: ComponentFixture<TestHostComponent>;
+
+  let debugElement: DebugElement;
+
   const mockCourse: CourseInfo = {
     id: 1,
     title: 'Video course',
@@ -49,16 +56,26 @@ describe('ItemComponent', () => {
 
   const setup = () => {
     TestBed.configureTestingModule({
-      declarations: [ ItemComponent ]
+      declarations: [ ItemComponent, IsItemFreshDirective, HoursMinutesPipe ]
     })
     .compileComponents();
-
 
     fixture = TestBed.createComponent(ItemComponent);
     component = fixture.componentInstance;
     component.course = mockCourse;
 
     fixture.detectChanges();
+  };
+
+  const setupHostTest = () => {
+    TestBed.configureTestingModule({
+      declarations: [ItemComponent, TestHostComponent, IsItemFreshDirective, HoursMinutesPipe]
+    })
+    .compileComponents();
+
+    fixtureHost = TestBed.createComponent(TestHostComponent);
+    componentHost = fixtureHost.componentInstance;
+    debugElement = fixtureHost.debugElement;
   };
 
   it('should create', () => {
@@ -98,43 +115,21 @@ describe('ItemComponent', () => {
   });
 
   it('should render mocked items', () => {
-    let component: TestHostComponent;
-    let fixture: ComponentFixture<TestHostComponent>;
-    let debugElement: DebugElement;
+    setupHostTest();
 
-    TestBed.configureTestingModule({
-      declarations: [ItemComponent, TestHostComponent]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(TestHostComponent);
-    component = fixture.componentInstance;
-    debugElement = fixture.debugElement;
-
-    fixture.detectChanges();
+    fixtureHost.detectChanges();
     expect(debugElement.queryAll(By.css('.item')).length).toBeTruthy();
   });
   
   it('should check that delete function works', () => {
-    let component: TestHostComponent;
-    let fixture: ComponentFixture<TestHostComponent>;
-    let debugElement: DebugElement;
+    setupHostTest();
 
-    TestBed.configureTestingModule({
-      declarations: [ItemComponent, TestHostComponent]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(TestHostComponent);
-    component = fixture.componentInstance;
-    debugElement = fixture.debugElement;
-
-    fixture.detectChanges();
+    fixtureHost.detectChanges();
     expect(debugElement.queryAll(By.css('.item')).length).toEqual(MOCKCOURSES.length);
 
-    component.deleteCourseById(component.courses[0].id);
+    componentHost.deleteCourseById(component.course.id);
 
-    fixture.detectChanges();
+    fixtureHost.detectChanges();
     expect(debugElement.queryAll(By.css('.item')).length).toEqual(MOCKCOURSES.length - 1);
   });
 });

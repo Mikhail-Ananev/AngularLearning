@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import COURSES from './mock-items';
 import { CourseInfo } from '../../models/interfaces';
 
@@ -9,6 +9,8 @@ import { CourseInfo } from '../../models/interfaces';
 })
 export class ItemsListComponent implements OnInit {
   public courses: Array<CourseInfo>;
+
+  @Input() public searchString: string;
 
   constructor() { }
 
