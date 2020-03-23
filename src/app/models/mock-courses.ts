@@ -1,4 +1,4 @@
-import { CourseInfo } from './../../models/interfaces';
+import { CourseInfo } from './interfaces';
 
 const COURSES: CourseInfo[] = [
     {

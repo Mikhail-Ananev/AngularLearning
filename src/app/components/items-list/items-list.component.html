@@ -7,7 +7,7 @@
         class="items_list items_container"
         *ngFor="let course of courses | orderBy: searchString"
         [course]="course"
-        (deleteEvent)="deleteCourseById($event)"
+        (deleteEvent)="confirmDeleteCourseById($event)"
         (editEvent)="editCourseById($event)"
     >
     </app-item>
@@ -16,3 +16,8 @@
         <a href="#">Load more</a>
     </div>
 </div>
+<app-confirm-delete
+    *ngIf="showDeleteDialog"
+    (confirmEvent)="deleteCourse($event)"
+>
+</app-confirm-delete>

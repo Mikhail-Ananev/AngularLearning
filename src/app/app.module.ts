@@ -19,6 +19,7 @@ import { IsItemFreshDirective } from './directives/is-item-fresh.directive';
 import { HoursMinutesPipe } from './pipes/hours-minutes.pipe';
 import { OrderByPipe } from './pipes/order-by.pipe';
 import { ConfirmDeleteComponent } from './components/confirm-delete/confirm-delete.component';
+import { AuthenticationComponent } from './components/authentication/authentication.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ConfirmDeleteComponent } from './components/confirm-delete/confirm-dele
     IsItemFreshDirective,
     HoursMinutesPipe,
     OrderByPipe,
-    ConfirmDeleteComponent
+    ConfirmDeleteComponent,
+    AuthenticationComponent
   ],
   exports: [
     MainComponent

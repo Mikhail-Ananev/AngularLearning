@@ -9,6 +9,8 @@ import { CoursesService } from 'src/app/services/courses.service';
 })
 export class ItemsListComponent implements OnInit {
   public courses: Array<CourseInfo>;
+  public showDeleteDialog: boolean;
+  private courseId: number;
 
   @Input() public searchString: string;
 
@@ -18,12 +20,30 @@ export class ItemsListComponent implements OnInit {
     this.courses = this.coursesService.getCourses();
   }
 
-  public deleteCourseById(id: number) {
-    this.coursesService.deleteCourse(id);
-    this.courses = this.coursesService.getCourses();
+  public confirmDeleteCourseById(id: number) {
+    this.courseId = id;
+    this.openDeleteDialog();
   }
 
   public editCourseById(id: number) {
     console.log('Here should be a method to edit course with ID: ' + id);
+  }
+
+  public deleteCourse(userChoise: boolean) {
+    if (userChoise) {
+      this.coursesService.deleteCourse(this.courseId);
+      this.courses = this.coursesService.getCourses();
+    }
+
+    this.closeDeleteDialog();
+    this.courseId = null;
+  }
+
+  public openDeleteDialog() {
+    this.showDeleteDialog = true;
+  }
+
+  public closeDeleteDialog() {
+    this.showDeleteDialog = false;
   }
 }

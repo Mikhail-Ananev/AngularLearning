@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import COURSES from '../components/items-list/mock-items';
+import COURSES from '../models/mock-courses';
 import { CourseInfo } from '../models/interfaces';
 
 @Injectable({
@@ -14,7 +14,7 @@ export class CoursesService {
     return this.coursesList.slice();
   }
   
-  public getCOurseById(id: number) {
+  public getCourseById(id: number) {
     return this.coursesList.filter((c) => c.id === id);
   }
 
