@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import USERS from './../models/mock-users';
 import { User } from '../models/interfaces';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
 export const TOKEN_NAME = 'jwt-token';
 const USER_FIRST_NAME = 'UserFirstName';
@@ -12,56 +13,30 @@ const USER_LAST_NAME = 'UserLastName';
   providedIn: 'root'
 })
 export class AuthService {
+  public isAuth$: Subject<boolean> = new Subject();
+
   private fakeToken = 'temporary fake token';
 
   constructor(private router: Router) { }
-
-  // public setToken(token: string) {
-  //   localStorage.setItem(TOKEN_NAME, token);
-  // }
-
-  // public getTokenExpirationDate(token: string): Date {
-  //   const decoded = jwt_decode(token);
-
-  //   if (decoded.exp === undefined) {
-  //     return null;
-  //   }
-
-  //   const date = new Date(0);
-  //   date.setUTCSeconds(decoded);
-  //   return date;
-  // }
-
-  // public isTokenExpired(token?: string): boolean {
-  //   if (!token) {
-  //     token = this.getToken();
-  //   }
-
-  //   if (!token) {
-  //     return true;
-  //   }
-
-  //   const date = this.getTokenExpirationDate(token);
-
-  //   return date.getMilliseconds() < new Date().getMilliseconds();
-  // }
 
   public login(email: string, password: string): boolean {
     if (this.checkUser(email, password)) {
       let user = this.getUserInfo(email);
       this.storeUserInfo(user);
+      this.isAuth$.next(true);
 
-      console.log('LOGIN SUCCESSFUL');
       this.router.navigate(['/Course']);
 
       return true;
     }
-    console.log('LOGIN FAILED');
+
     return false;
   }
 
   public logout(): boolean {
     this.deleteUserInfo();
+    this.isAuth$.next(false);
+
     this.router.navigate(['/Login']);
     return true;
   }
