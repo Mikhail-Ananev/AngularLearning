@@ -1,0 +1,29 @@
+<div class="auth">
+    <div class="auth_content">
+        <div class="auth_content__header">
+            Login
+        </div>
+        <div class="auth_content__main">
+            <div class="login-name">
+                <div class="login-name_header">
+                    <span class="login-name_header__text">E-mail:</span>
+                    <span>*required</span>
+                </div>
+                
+                <input type="text" placeholder="Enter e-mail" [(ngModel)]="loginName" />
+            </div>
+            <div class="login-password">
+                <div class="login-password_header">
+                    <span class="login-password_header__text">Password:</span>
+                    <span>*required</span>
+                </div>
+
+                <input type="password" placeholder="Enter password" [(ngModel)]="loginPassword" />
+            </div>
+            <div class="login-action">
+                <a href="#">Forgot password?</a>
+                <button (click)="login()">Login</button>
+            </div>
+        </div>
+    </div>
+</div>

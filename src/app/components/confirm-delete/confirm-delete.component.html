@@ -1,0 +1,21 @@
+<div class="dialog">
+    <div class="dialog_content">
+        <div class="dialog_content__header">
+            <span class="dialog_name">
+                Confirm delete action
+            </span>
+            <span class="dialog_close-button">
+                <button  (click)="confirmDeleteCourse(false)">
+                    <i class="fa fa-times"></i>
+                </button>
+            </span>
+        </div>
+        <div class="dialog_content__main">
+            Do You really want to delete this course?
+        </div>
+        <div class="dialog_content__actions">
+            <input type="submit" value="Yes" class="action_submit" (click)="confirmDeleteCourse(true)" />
+            <input type="button" value="No" class="action_cancel" (click)="confirmDeleteCourse(false)" />
+        </div>
+    </div>
+</div>

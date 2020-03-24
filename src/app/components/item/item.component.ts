@@ -20,7 +20,6 @@ export class ItemComponent implements OnInit {
 
   public deleteCourse(id: number) {
     this.deleteEvent.emit(id);
-    console.log(`The course with ID \"${id}\" were deleted`);
   }
 
   public editCourse(id: number) {
