@@ -15,6 +15,10 @@ header {
             justify-content: space-between;
             width: 15%;
             color: white;
+
+            span {
+                cursor: pointer;
+            }
         }
     }
 }

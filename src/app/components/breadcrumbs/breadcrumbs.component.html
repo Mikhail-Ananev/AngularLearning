@@ -1,5 +1,7 @@
-<nav>
-    <div class="breadcrumb-container">
-        <a routerLink="Course">Course</a>
-    </div>
+<nav [ngClass]="{'breadcrumb-container_filled': isAuthenticated}">
+    <div *ngIf="isAuthenticated">   
+        <div class="breadcrumb-container">
+            <a routerLink="Course">Course</a>
+        </div>
+    </div> 
 </nav>
