@@ -15,6 +15,7 @@ export class BreadcrumbsComponent implements OnInit, OnDestroy {
   constructor(private authService: AuthService) {}
 
   public ngOnInit(): void {
+    this.isAuthenticated = this.authService.isAuthenticated();
     this.subscriptions.add(this.authService.isAuth$.subscribe((isAuth) => {
       this.isAuthenticated = isAuth
     }));

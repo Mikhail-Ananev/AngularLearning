@@ -1,18 +1,15 @@
 <header>
     <div class="header-container">
         <img src="/assets/images/logo.png" />
-        <div *ngIf="isAuthenticated;then content"></div>    
-        <ng-template #content>
-            <div class="user-container">
-                <span>
-                    <fa-icon [icon]="faUser"></fa-icon>
-                    User login
-                </span>
-                <span (click)="logOff()">
-                    <fa-icon [icon]="faSignOutAlt"></fa-icon>
-                    Log off
-                </span>
-            </div>
-        </ng-template>
+        <div *ngIf="isAuthenticated" class="user-container">    
+            <span>
+                <fa-icon [icon]="faUser"></fa-icon>
+                User login
+            </span>
+            <span (click)="logOff()">
+                <fa-icon [icon]="faSignOutAlt"></fa-icon>
+                Log off
+            </span>
+        </div>
     </div>
 </header>

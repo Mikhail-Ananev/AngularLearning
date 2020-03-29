@@ -1,0 +1,26 @@
+<div class="content">
+    <div>
+        <p>Title:</p>
+        <input type="text" value="{{course.title}}" />
+    </div>
+    <div>
+        <p>Description:</p>
+        <textarea rows="4">{{course.description}}</textarea>
+    </div>
+    <div>
+        <p>Date:</p>
+        <input type="datetime" value="{{course.creationDate | date:'mediumDate'}}" />
+    </div>
+    <div>
+        <p>Duration:</p>
+        <app-input-duration></app-input-duration>
+    </div>
+    <div>
+        <p>Authors:</p>
+        <input type="text" />
+    </div>
+    <div class="content_actions">
+        <input type="submit" value="Save" class="action_save" (click)="saveCourse()" />
+        <input type="button" value="Cancel" class="action_cancel" (click)="cancelCreation()" />
+    </div>
+</div>

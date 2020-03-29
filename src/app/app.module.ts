@@ -20,6 +20,8 @@ import { HoursMinutesPipe } from './pipes/hours-minutes.pipe';
 import { OrderByPipe } from './pipes/order-by.pipe';
 import { ConfirmDeleteComponent } from './components/confirm-delete/confirm-delete.component';
 import { AuthenticationComponent } from './components/authentication/authentication.component';
+import { AddEditItemComponent } from './components/add-edit-item/add-edit-item.component';
+import { InputDurationComponent } from './components/input-duration/input-duration.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { AuthenticationComponent } from './components/authentication/authenticat
     HoursMinutesPipe,
     OrderByPipe,
     ConfirmDeleteComponent,
-    AuthenticationComponent
+    AuthenticationComponent,
+    AddEditItemComponent,
+    InputDurationComponent
   ],
   exports: [
     MainComponent
