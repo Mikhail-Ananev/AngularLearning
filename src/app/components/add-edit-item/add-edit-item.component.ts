@@ -13,16 +13,16 @@ export class AddEditItemComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute,
+    //private activatedRoute: ActivatedRoute,
     private coursesService: CoursesService
   ) { }
 
   ngOnInit(): void {
-    const id =  this.activatedRoute.snapshot.paramMap.get('id');
+    //const id =  this.activatedRoute.snapshot.paramMap.get('id');
 
-    if (id) {
-      this.course = this.coursesService.getCourseById(+id);
-    } else {
+    // if (id) {
+    //   this.course = this.coursesService.getCourseById(+id);
+    // } else {
       this.course = {
         id: -1,
         title: '',
@@ -30,7 +30,7 @@ export class AddEditItemComponent implements OnInit {
         duration: 0,
         creationDate: new Date(),
       }
-    }
+    // }
   }
 
   public saveCourse() {
