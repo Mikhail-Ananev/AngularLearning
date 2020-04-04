@@ -1,12 +1,13 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { CourseInfo } from '../../models/interfaces';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-item',
   templateUrl: './item.component.html',
   styleUrls: ['./item.component.scss']
 })
-export class ItemComponent implements OnInit {
+export class ItemComponent {
   @Input() public course: CourseInfo;
   @Input() public searchString: string;
 
@@ -14,9 +15,6 @@ export class ItemComponent implements OnInit {
   @Output() public editEvent = new EventEmitter<number>();
 
   constructor() { }
-
-  public ngOnInit(): void {
-  }
 
   public deleteCourse(id: number) {
     this.deleteEvent.emit(id);

@@ -1,25 +1,29 @@
 import { Injectable } from '@angular/core';
 import COURSES from '../models/mock-courses';
 import { CourseInfo } from '../models/interfaces';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CoursesService {
-  private coursesList = COURSES.slice();
+  private coursesList: CourseInfo[] = COURSES.slice();
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   public getCourses() {
     return this.coursesList.slice();
   }
   
-  public getCourseById(id: number) {
-    return this.coursesList.filter((c) => c.id === id);
+  public getCourseById(id: number): CourseInfo {
+    return this.coursesList.filter((c) => c.id === id)[0];
   }
 
   public createCourse(course: CourseInfo) {
     this.coursesList.push(course);
+
+    this.router.navigate(['/Course']);
+
     return course.id;
   }
 

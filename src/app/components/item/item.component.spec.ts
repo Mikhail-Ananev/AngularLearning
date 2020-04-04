@@ -127,9 +127,10 @@ describe('ItemComponent', () => {
     fixtureHost.detectChanges();
     expect(debugElement.queryAll(By.css('.item')).length).toEqual(MOCKCOURSES.length);
 
-    componentHost.deleteCourseById(component.course.id);
-
+    let id = MOCKCOURSES[0].id;
+    componentHost.deleteCourseById(id);
     fixtureHost.detectChanges();
+
     expect(debugElement.queryAll(By.css('.item')).length).toEqual(MOCKCOURSES.length - 1);
   });
 });
