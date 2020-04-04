@@ -1,16 +1,24 @@
+import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 
-import { BreadcrumbsComponent } from './breadcrumbs.component';
+import { AddEditItemComponent } from './add-edit-item.component';
 import { RouterStub } from 'src/app/test-helper';
 
-describe('BreadcrumbsComponent', () => {
-  let component: BreadcrumbsComponent;
-  let fixture: ComponentFixture<BreadcrumbsComponent>;
+@Component({
+  selector: 'app-input-duration',
+  template: ''
+})
+class MockInputDurationComponent {
+}
+
+describe('AddEditItemComponent', () => {
+  let component: AddEditItemComponent;
+  let fixture: ComponentFixture<AddEditItemComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BreadcrumbsComponent ],
+      declarations: [ AddEditItemComponent, MockInputDurationComponent ],
       providers: [
         { provide: Router, useClass: RouterStub }
       ]
@@ -19,7 +27,7 @@ describe('BreadcrumbsComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BreadcrumbsComponent);
+    fixture = TestBed.createComponent(AddEditItemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CourseInfo } from '../../models/interfaces';
 import { CoursesService } from 'src/app/services/courses.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-items-list',
@@ -14,7 +15,10 @@ export class ItemsListComponent implements OnInit {
 
   @Input() public searchString: string;
 
-  constructor(private coursesService: CoursesService) { }
+  constructor(
+    private coursesService: CoursesService,
+    private router: Router
+  ) { }
 
   public ngOnInit(): void {
     this.courses = this.coursesService.getCourses();
@@ -26,7 +30,7 @@ export class ItemsListComponent implements OnInit {
   }
 
   public editCourseById(id: number) {
-    console.log('Here should be a method to edit course with ID: ' + id);
+    this.router.navigate(['/Course', id]);
   }
 
   public deleteCourse(userChoise: boolean) {
@@ -45,5 +49,9 @@ export class ItemsListComponent implements OnInit {
 
   public closeDeleteDialog() {
     this.showDeleteDialog = false;
+  }
+
+  public openCreatePage() {
+    this.router.navigate(['/Course/New']);
   }
 }

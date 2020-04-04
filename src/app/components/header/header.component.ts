@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/services/auth.service';
 import { Subscription } from 'rxjs';
@@ -20,6 +20,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) { }
 
   public ngOnInit(): void {
+    this.isAuthenticated = this.authService.isAuthenticated();
     this.subscriptions.add(this.authService.isAuth$.subscribe((isAuth) => {
       this.isAuthenticated = isAuth
     }));
