@@ -22,6 +22,7 @@ import { ConfirmDeleteComponent } from './components/confirm-delete/confirm-dele
 import { AuthenticationComponent } from './components/authentication/authentication.component';
 import { AddEditItemComponent } from './components/add-edit-item/add-edit-item.component';
 import { InputDurationComponent } from './components/input-duration/input-duration.component';
+import { NoPageComponent } from './components/no-page/no-page.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { InputDurationComponent } from './components/input-duration/input-durati
     ConfirmDeleteComponent,
     AuthenticationComponent,
     AddEditItemComponent,
-    InputDurationComponent
+    InputDurationComponent,
+    NoPageComponent
   ],
   exports: [
     MainComponent

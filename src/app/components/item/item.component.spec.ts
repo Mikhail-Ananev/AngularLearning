@@ -120,14 +120,14 @@ describe('ItemComponent', () => {
     fixtureHost.detectChanges();
     expect(debugElement.queryAll(By.css('.item')).length).toBeTruthy();
   });
-  
+
   it('should check that delete function works', () => {
     setupHostTest();
 
     fixtureHost.detectChanges();
     expect(debugElement.queryAll(By.css('.item')).length).toEqual(MOCKCOURSES.length);
 
-    let id = MOCKCOURSES[0].id;
+    const id = MOCKCOURSES[0].id;
     componentHost.deleteCourseById(id);
     fixtureHost.detectChanges();
 

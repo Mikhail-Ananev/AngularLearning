@@ -29,8 +29,8 @@ export class ItemsListComponent implements OnInit {
     this.openDeleteDialog();
   }
 
-  public editCourseById(id: number) {
-    this.router.navigate(['/Course', id]);
+  public editCourseById(courseName: string) {
+    this.router.navigate(['/Courses', courseName]);
   }
 
   public deleteCourse(userChoise: boolean) {
@@ -52,6 +52,6 @@ export class ItemsListComponent implements OnInit {
   }
 
   public openCreatePage() {
-    this.router.navigate(['/Course/New']);
+    this.router.navigate(['/Courses/New']);
   }
 }

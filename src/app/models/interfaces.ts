@@ -14,3 +14,8 @@ export interface User {
     email: string;
     password: string;
 }
+
+export interface IBreadCrumb {
+    label: string;
+    url: string;
+}

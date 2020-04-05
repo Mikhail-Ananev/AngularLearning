@@ -14,15 +14,19 @@ export class CoursesService {
   public getCourses() {
     return this.coursesList.slice();
   }
-  
+
   public getCourseById(id: number): CourseInfo {
     return this.coursesList.filter((c) => c.id === id)[0];
+  }
+
+  public getCourseByName(name: string): CourseInfo {
+    return this.coursesList.filter((c) => c.title === name)[0];
   }
 
   public createCourse(course: CourseInfo) {
     this.coursesList.push(course);
 
-    this.router.navigate(['/Course']);
+    this.router.navigate(['/Courses']);
 
     return course.id;
   }
@@ -44,5 +48,10 @@ export class CoursesService {
   public deleteCourse(id: number) {
     this.coursesList = this.coursesList.filter((c) => c.id !== id);
     return true;
+  }
+
+  public generateNewCourseId(): number {
+    let max = Math.max.apply(Math, this.coursesList.map((course) => course.id));
+    return ++max;
   }
 }

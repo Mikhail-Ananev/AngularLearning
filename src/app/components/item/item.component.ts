@@ -12,7 +12,7 @@ export class ItemComponent {
   @Input() public searchString: string;
 
   @Output() public deleteEvent = new EventEmitter<number>();
-  @Output() public editEvent = new EventEmitter<number>();
+  @Output() public editEvent = new EventEmitter<string>();
 
   constructor() { }
 
@@ -20,7 +20,7 @@ export class ItemComponent {
     this.deleteEvent.emit(id);
   }
 
-  public editCourse(id: number) {
-    this.editEvent.emit(id);
+  public editCourse(courseName: string) {
+    this.editEvent.emit(courseName);
   }
 }

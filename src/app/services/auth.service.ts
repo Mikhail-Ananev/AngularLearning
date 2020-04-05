@@ -21,7 +21,7 @@ export class AuthService {
 
   public login(email: string, password: string): boolean {
     if (this.checkUser(email, password)) {
-      let user = this.getUserInfo(email);
+      const user = this.getUserInfo(email);
       this.storeUserInfo(user);
       this.isAuth$.next(true);
 
