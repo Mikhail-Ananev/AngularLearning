@@ -9,10 +9,10 @@ import { AuthService } from 'src/app/services/auth.service';
 export class AuthenticationComponent {
   public loginName: string;
   public loginPassword: string;
-  
+
   constructor(private authService: AuthService) { }
 
   public login() {
-    this.authService.login(this.loginName, this.loginPassword)
+    this.authService.login(this.loginName, this.loginPassword);
   }
 }

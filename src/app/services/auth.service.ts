@@ -1,13 +1,10 @@
 import { Injectable } from '@angular/core';
-
-import USERS from './../models/mock-users';
-import { User } from '../models/interfaces';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 
-export const TOKEN_NAME = 'jwt-token';
-const USER_FIRST_NAME = 'UserFirstName';
-const USER_LAST_NAME = 'UserLastName';
+import USERS from './../models/mock-users';
+import { User } from '../models/interfaces';
+import { TOKEN_NAME, USER_FIRST_NAME, USER_LAST_NAME, SERVER_URL } from '../models/const';
 
 @Injectable({
   providedIn: 'root'
@@ -19,18 +16,20 @@ export class AuthService {
 
   constructor(private router: Router) { }
 
-  public login(email: string, password: string): boolean {
-    if (this.checkUser(email, password)) {
-      const user = this.getUserInfo(email);
-      this.storeUserInfo(user);
-      this.isAuth$.next(true);
+  public login(email: string, password: string): void {
 
-      this.router.navigate(['/Course']);
+    const url = SERVER_URL + `/users?email=${email}`;
 
-      return true;
-    }
-
-    return false;
+    fetch(url)
+      // tslint:disable-next-line: no-shadowed-variable
+      .then(response => response.json())
+      .then(data => {
+        if (data[0].password === password) {
+          this.storeUserInfo(data[0]);
+          this.isAuth$.next(true);
+          this.router.navigate(['/Courses']);
+        }
+      });
   }
 
   public logout(): boolean {
@@ -48,25 +47,20 @@ export class AuthService {
 
     return false;
   }
+// Delete?
+  public getUserInfo(email: string): void {
+    const url = SERVER_URL + `/users?email=${email}`;
 
-  public getUserInfo(email: string): User {
-    const user = USERS.find((u) => u.email === email);
-
-    return user;
+    fetch(url)
+    // tslint:disable-next-line: no-shadowed-variable
+      .then(response => response.json())
+      .then(data => {
+        return data[0] as User; // ??
+      });
   }
 
   private getToken(): string {
     return localStorage.getItem(TOKEN_NAME);
-  }
-
-  private checkUser(email: string, password: string): boolean {
-    const hasUser = USERS.some((u) => {
-      if (u.email === email && u.password === password) {
-        return true;
-      }
-    });
-
-    return hasUser;
   }
 
   private storeUserInfo(user: User) {
