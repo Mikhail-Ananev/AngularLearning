@@ -6,11 +6,7 @@ import { Router } from '@angular/router';
   templateUrl: './no-page.component.html',
   styleUrls: ['./no-page.component.scss']
 })
-export class NoPageComponent implements OnInit {
+export class NoPageComponent {
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
-
 }

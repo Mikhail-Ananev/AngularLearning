@@ -25,7 +25,7 @@ export class AuthService {
       this.storeUserInfo(user);
       this.isAuth$.next(true);
 
-      this.router.navigate(['/Course']);
+      this.router.navigate(['/Courses']);
 
       return true;
     }
