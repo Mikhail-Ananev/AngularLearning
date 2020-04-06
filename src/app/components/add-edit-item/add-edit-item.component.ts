@@ -13,24 +13,24 @@ export class AddEditItemComponent implements OnInit {
 
   constructor(
     private router: Router,
-    //private activatedRoute: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private coursesService: CoursesService
   ) { }
 
   ngOnInit(): void {
-    //const id =  this.activatedRoute.snapshot.paramMap.get('id');
+    const courseName =  this.activatedRoute.snapshot.paramMap.get('courseName');
 
-    // if (id) {
-    //   this.course = this.coursesService.getCourseById(+id);
-    // } else {
+    if (courseName) {
+      this.course = this.coursesService.getCourseByName(courseName);
+    } else {
       this.course = {
-        id: -1,
+        id: this.coursesService.generateNewCourseId(),
         title: '',
         description: '',
         duration: 0,
         creationDate: new Date(),
-      }
-    // }
+      };
+    }
   }
 
   public saveCourse() {
@@ -38,6 +38,6 @@ export class AddEditItemComponent implements OnInit {
   }
 
   public cancelCreation() {
-    this.router.navigate(['/Course']);
+    this.router.navigate(['/Courses']);
   }
 }
