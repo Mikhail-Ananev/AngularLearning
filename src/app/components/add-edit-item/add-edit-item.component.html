@@ -1,19 +1,19 @@
 <div class="content">
     <div>
         <p>Title:</p>
-        <input type="text" value="{{course.title}}" />
+        <input type="text" [(ngModel)]="course.title" />
     </div>
     <div>
         <p>Description:</p>
-        <textarea rows="4">{{course.description}}</textarea>
+        <textarea rows="4" [(ngModel)]="course.description"></textarea>
     </div>
     <div>
         <p>Date:</p>
-        <input type="datetime" value="{{course.creationDate | date:'mediumDate'}}" />
+        <input type="datetime" [(ngModel)]="course.creationDate" />
     </div>
     <div>
         <p>Duration:</p>
-        <app-input-duration></app-input-duration>
+        <app-input-duration [(duration)]="course.duration"></app-input-duration>
     </div>
     <div>
         <p>Authors:</p>

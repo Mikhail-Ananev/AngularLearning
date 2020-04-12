@@ -1,57 +1,73 @@
 import { Injectable } from '@angular/core';
-import COURSES from '../models/mock-courses';
-import { CourseInfo } from '../models/interfaces';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { Observable, Subject } from 'rxjs';
+
+import { CourseInfo } from '../models/interfaces';
+import { SERVER_URL } from '../models/const';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CoursesService {
-  private coursesList: CourseInfo[] = COURSES.slice();
+  public searchFilterUpdated$: Subject<boolean> = new Subject();
 
-  constructor(private router: Router) { }
+  private count = 4;
+  private filter = '';
 
-  public getCourses() {
-    return this.coursesList.slice();
+  constructor(
+    private router: Router,
+    private http: HttpClient
+  ) { }
+
+  public getCourses(start: number): Observable<CourseInfo[]> {
+    const url = SERVER_URL + `/courses?_start=${start}&_limit=${this.count}&q=${this.filter}`;
+
+    return this.http.get<CourseInfo[]>(url);
   }
 
-  public getCourseById(id: number): CourseInfo {
-    return this.coursesList.filter((c) => c.id === id)[0];
+  public getCourseById(id: number): Observable<CourseInfo> {
+    const url = SERVER_URL + `/courses/${id}`;
+
+    return this.http.get<CourseInfo>(url);
   }
 
-  public getCourseByName(name: string): CourseInfo {
-    return this.coursesList.filter((c) => c.title === name)[0];
+  public getCourseByName(title: string): Observable<CourseInfo[]> {
+    const url = SERVER_URL + `/courses?title=${title}`;
+
+    return this.http.get<CourseInfo[]>(url);
   }
 
   public createCourse(course: CourseInfo) {
-    this.coursesList.push(course);
+    const url = SERVER_URL + '/courses';
 
-    this.router.navigate(['/Courses']);
-
-    return course.id;
+    return this.http.post<CourseInfo>(url, course)
+      .subscribe(() => {
+        this.router.navigate(['/Courses']);
+      });
   }
 
   public updateCourse(course: CourseInfo) {
-    this.coursesList = this.coursesList.filter((c) => {
-      if (c.id === course.id) {
-        c.creationDate = course.creationDate;
-        c.description = course.description;
-        c.duration = course.duration;
-        c.title = course.title;
-        c.topRated = course.topRated;
-      }
-    });
+    const url = SERVER_URL + `/courses/${course.id}`;
 
-    return true;
+    return this.http.put<CourseInfo>(url, course)
+      .subscribe(() => {
+        this.router.navigate(['/Courses']);
+      });
   }
 
   public deleteCourse(id: number) {
-    this.coursesList = this.coursesList.filter((c) => c.id !== id);
-    return true;
+    const url = SERVER_URL + `/courses/${id}`;
+
+    return this.http.delete(url);
   }
 
   public generateNewCourseId(): number {
-    let max = Math.max.apply(Math, this.coursesList.map((course) => course.id));
-    return ++max;
+    return new Date().getMilliseconds();
+  }
+
+  public setFilter(filterStr: string): void {
+    this.filter = filterStr;
+    this.searchFilterUpdated$.next();
   }
 }

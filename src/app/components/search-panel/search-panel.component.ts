@@ -1,22 +1,18 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
+
+import { CoursesService } from '../../services/courses.service';
 
 @Component({
   selector: 'app-search-panel',
   templateUrl: './search-panel.component.html',
   styleUrls: ['./search-panel.component.scss']
 })
-export class SearchPanelComponent implements OnInit {
+export class SearchPanelComponent {
   public searchString: string;
 
-  @Output() public searchEvent = new EventEmitter<string>();
+  constructor(private coursesService: CoursesService) { }
 
-  constructor() { }
-
-  public ngOnInit(): void {
-    this.searchString = '';
-  }
-
-  public startSearch(str: string) {
-    this.searchEvent.emit(str);
+  public startSearch() {
+    this.coursesService.setFilter(this.searchString);
   }
 }

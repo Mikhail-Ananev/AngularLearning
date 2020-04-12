@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { CourseInfo } from '../../models/interfaces';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { CourseInfo, CourseMinInfo } from '../../models/interfaces';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -12,7 +12,9 @@ export class ItemComponent {
   @Input() public searchString: string;
 
   @Output() public deleteEvent = new EventEmitter<number>();
-  @Output() public editEvent = new EventEmitter<string>();
+  @Output() public editEvent = new EventEmitter<CourseMinInfo>();
+
+  private courseMinInfo: CourseMinInfo;
 
   constructor() { }
 
@@ -20,7 +22,12 @@ export class ItemComponent {
     this.deleteEvent.emit(id);
   }
 
-  public editCourse(courseName: string) {
-    this.editEvent.emit(courseName);
+  public editCourse(courseName: string, courseId: number) {
+    this.courseMinInfo = {
+      id: courseId,
+      title: courseName
+    };
+
+    this.editEvent.emit(this.courseMinInfo);
   }
 }

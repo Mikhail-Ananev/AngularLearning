@@ -7,6 +7,11 @@ export interface CourseInfo {
     topRated?: boolean;
 }
 
+export interface CourseMinInfo {
+    id: number;
+    title: string;
+}
+
 export interface User {
     id: number;
     firstName: string;

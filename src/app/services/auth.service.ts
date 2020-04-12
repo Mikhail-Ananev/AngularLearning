@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Subject, Observable } from 'rxjs';
 
-import USERS from './../models/mock-users';
 import { User } from '../models/interfaces';
 import { TOKEN_NAME, USER_FIRST_NAME, USER_LAST_NAME, SERVER_URL } from '../models/const';
 
@@ -14,22 +14,25 @@ export class AuthService {
 
   private fakeToken = 'temporary fake token';
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private http: HttpClient
+  ) { }
 
-  public login(email: string, password: string): void {
+  public login(email: string, password: string) {
+    this.getUserInfo(email).subscribe(user => {
+      if (user[0].password === password) {
+        this.storeUserInfo(user[0]);
+        this.isAuth$.next(true);
+        this.router.navigate(['/Courses']);
+      }
+    });
+  }
 
+  public getUserInfo(email: string): Observable<User> {
     const url = SERVER_URL + `/users?email=${email}`;
 
-    fetch(url)
-      // tslint:disable-next-line: no-shadowed-variable
-      .then(response => response.json())
-      .then(data => {
-        if (data[0].password === password) {
-          this.storeUserInfo(data[0]);
-          this.isAuth$.next(true);
-          this.router.navigate(['/Courses']);
-        }
-      });
+    return this.http.get<User>(url);
   }
 
   public logout(): boolean {
@@ -46,17 +49,6 @@ export class AuthService {
     }
 
     return false;
-  }
-// Delete?
-  public getUserInfo(email: string): void {
-    const url = SERVER_URL + `/users?email=${email}`;
-
-    fetch(url)
-    // tslint:disable-next-line: no-shadowed-variable
-      .then(response => response.json())
-      .then(data => {
-        return data[0] as User; // ??
-      });
   }
 
   private getToken(): string {

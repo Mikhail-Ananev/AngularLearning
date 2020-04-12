@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+
 import { CourseInfo } from '../models/interfaces';
 
 @Pipe({
@@ -11,10 +12,11 @@ export class OrderByPipe implements PipeTransform {
       return inputArr.sort((a, b) => {
         return b.creationDate.getTime() - a.creationDate.getTime();
       });
-    }
-    
+    };
+
     if (searchString) {
       const sortCourses = courses.filter((course) => {
+        // tslint:disable-next-line: no-bitwise
         return ~course.title.toUpperCase().indexOf(searchString.toUpperCase());
       });
 
@@ -23,6 +25,4 @@ export class OrderByPipe implements PipeTransform {
 
     return sortByCreationDate(courses);
   }
-
-
 }

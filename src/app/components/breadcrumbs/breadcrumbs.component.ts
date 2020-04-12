@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
-import { Subscription } from 'rxjs';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
-import { IBreadCrumb } from 'src/app/models/interfaces';
+import { Subscription } from 'rxjs';
+
+import { AuthService } from '../../services/auth.service';
+import { IBreadCrumb } from '../../models/interfaces';
 
 @Component({
   selector: 'app-breadcrumbs',

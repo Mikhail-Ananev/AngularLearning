@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { CourseInfo } from 'src/app/models/interfaces';
-import { CoursesService } from 'src/app/services/courses.service';
+
+import { CourseInfo } from '../../models/interfaces';
+import { CoursesService } from '../../services/courses.service';
 
 @Component({
   selector: 'app-add-edit-item',
@@ -10,6 +11,7 @@ import { CoursesService } from 'src/app/services/courses.service';
 })
 export class AddEditItemComponent implements OnInit {
   public course: CourseInfo;
+  private newCourse: boolean;
 
   constructor(
     private router: Router,
@@ -18,23 +20,32 @@ export class AddEditItemComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const courseName =  this.activatedRoute.snapshot.paramMap.get('courseName');
+    const courseId = this.activatedRoute.snapshot.paramMap.get('id');
 
-    if (courseName) {
-      this.course = this.coursesService.getCourseByName(courseName);
+    this.course = {
+      id: 0,
+      title: '',
+      description: '',
+      duration: 0,
+      creationDate: new Date(),
+    };
+
+    if (courseId) {
+      this.coursesService.getCourseById(+courseId)
+        .subscribe(course => {
+          this.course = course;
+        });
+      this.newCourse = false;
     } else {
-      this.course = {
-        id: this.coursesService.generateNewCourseId(),
-        title: '',
-        description: '',
-        duration: 0,
-        creationDate: new Date(),
-      };
+      this.course.id = this.coursesService.generateNewCourseId();
+      this.newCourse = true;
     }
   }
 
   public saveCourse() {
-    this.coursesService.createCourse(this.course);
+    this.newCourse
+      ? this.coursesService.createCourse(this.course)
+      : this.coursesService.updateCourse(this.course);
   }
 
   public cancelCreation() {
