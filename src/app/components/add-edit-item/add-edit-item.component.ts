@@ -11,6 +11,8 @@ import { CoursesService } from '../../services/courses.service';
 })
 export class AddEditItemComponent implements OnInit {
   public course: CourseInfo;
+  public creationDate: string;
+
   private newCourse: boolean;
 
   constructor(
@@ -34,21 +36,36 @@ export class AddEditItemComponent implements OnInit {
       this.coursesService.getCourseById(+courseId)
         .subscribe(course => {
           this.course = course;
+          this.course.creationDate = new Date(course.creationDate);
+          this.formInputDate(this.course.creationDate);
         });
       this.newCourse = false;
     } else {
       this.course.id = this.coursesService.generateNewCourseId();
+      this.formInputDate(this.course.creationDate);
       this.newCourse = true;
     }
   }
 
   public saveCourse() {
+    this.course.creationDate = new Date(this.creationDate);
+
     this.newCourse
       ? this.coursesService.createCourse(this.course)
-      : this.coursesService.updateCourse(this.course);
+        .subscribe(() => {
+          this.router.navigate(['/Courses']);
+        })
+      : this.coursesService.updateCourse(this.course)
+        .subscribe(() => {
+          this.router.navigate(['/Courses']);
+        });
   }
 
   public cancelCreation() {
     this.router.navigate(['/Courses']);
+  }
+
+  private formInputDate(date: Date): void {
+    this.creationDate = date.toJSON().slice(0, 10);
   }
 }

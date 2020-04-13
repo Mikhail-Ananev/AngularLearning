@@ -8,7 +8,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class InputDurationComponent{
   private durationValue = 0;
 
-  @Output() durationChange = new EventEmitter();
+  @Output() public durationChange = new EventEmitter();
 
   constructor() { }
 
