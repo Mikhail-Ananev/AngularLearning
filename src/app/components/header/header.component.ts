@@ -3,6 +3,7 @@ import { faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 
 import { AuthService } from '../../services/auth.service';
+import { UserName } from '../../models/interfaces';
 
 @Component({
   selector: 'app-header',
@@ -11,6 +12,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   public isAuthenticated: boolean;
+  public userNameInfo: string;
   public faSignOutAlt = faSignOutAlt;
   public faUser = faUser;
 
@@ -22,8 +24,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.isAuthenticated = this.authService.isAuthenticated();
+    this.userNameInfo = 'Login';
+
     this.subscriptions.add(this.authService.isAuth$.subscribe((isAuth) => {
       this.isAuthenticated = isAuth;
+    }));
+
+    this.subscriptions.add(this.authService.userName$.subscribe((userName) => {
+      this.userNameInfo = userName.firstName + userName.lastName;
+      console.dir(this.userNameInfo);
+      console.dir(userName);
     }));
   }
 
