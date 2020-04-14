@@ -11,11 +11,13 @@ import { httpInterceptorProviders } from './interceptors';
 
 import { AppComponent } from './app.component';
 import { AppComponents } from './components';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AppComponents
+    AppComponents,
+    LoadingComponent
   ],
   exports: [
   ],

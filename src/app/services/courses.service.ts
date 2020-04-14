@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 
@@ -16,7 +15,6 @@ export class CoursesService {
   private filter = '';
 
   constructor(
-    private router: Router,
     private http: HttpClient
   ) { }
 

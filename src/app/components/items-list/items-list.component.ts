@@ -1,9 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 
 import { CourseInfo, CourseMinInfo } from '../../models/interfaces';
 import { CoursesService } from '../../services/courses.service';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-items-list',
@@ -21,14 +22,18 @@ export class ItemsListComponent implements OnInit {
 
   constructor(
     private coursesService: CoursesService,
+    private loadingService: LoadingService,
     private router: Router
   ) { }
 
   public ngOnInit(): void {
+    this.loadingService.startLoading();
+
     this.initCourses();
     this.subscriptions.add(this.coursesService.searchFilterUpdated$
       .subscribe(() => {
         this.initCourses();
+        this.loadingService.stopLoading();
       }));
   }
 
@@ -43,9 +48,12 @@ export class ItemsListComponent implements OnInit {
 
   public deleteCourse(userChoise: boolean) {
     if (userChoise) {
+      this.loadingService.startLoading();
+
       this.coursesService.deleteCourse(this.courseId)
         .subscribe(() => {
           this.initCourses();
+          this.loadingService.stopLoading();
         });
     }
 
@@ -72,10 +80,13 @@ export class ItemsListComponent implements OnInit {
   }
 
   private getCourseRequest(start: number): void {
+    this.loadingService.startLoading();
+
     this.coursesService.getCourses(start)
       .subscribe(data => {
         data.forEach((course) => course.creationDate = new Date(course.creationDate));
         this.courses = [...this.courses, ...data];
+        this.loadingService.stopLoading();
       });
   }
 
