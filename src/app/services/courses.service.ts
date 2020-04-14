@@ -39,19 +39,13 @@ export class CoursesService {
   public createCourse(course: CourseInfo) {
     const url = SERVER_URL + '/courses';
 
-    return this.http.post<CourseInfo>(url, course)
-      .subscribe(() => {
-        this.router.navigate(['/Courses']);
-      });
+    return this.http.post<CourseInfo>(url, course);
   }
 
   public updateCourse(course: CourseInfo) {
     const url = SERVER_URL + `/courses/${course.id}`;
 
-    return this.http.put<CourseInfo>(url, course)
-      .subscribe(() => {
-        this.router.navigate(['/Courses']);
-      });
+    return this.http.put<CourseInfo>(url, course);
   }
 
   public deleteCourse(id: number) {

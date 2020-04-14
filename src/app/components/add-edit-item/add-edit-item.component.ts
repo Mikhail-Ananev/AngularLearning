@@ -12,6 +12,8 @@ import { LoadingService } from '../../services/loading.service';
 })
 export class AddEditItemComponent implements OnInit {
   public course: CourseInfo;
+  public creationDate: string;
+
   private newCourse: boolean;
 
   constructor(
@@ -44,6 +46,7 @@ export class AddEditItemComponent implements OnInit {
       this.newCourse = false;
     } else {
       this.course.id = this.coursesService.generateNewCourseId();
+      this.formInputDate(this.course.creationDate);
       this.newCourse = true;
     }
   }
@@ -67,5 +70,9 @@ export class AddEditItemComponent implements OnInit {
 
   public cancelCreation() {
     this.router.navigate(['/Courses']);
+  }
+
+  private formInputDate(date: Date): void {
+    this.creationDate = date.toJSON().slice(0, 10);
   }
 }

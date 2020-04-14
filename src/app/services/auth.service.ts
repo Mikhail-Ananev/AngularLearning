@@ -20,13 +20,18 @@ export class AuthService {
   ) { }
 
   public login(email: string, password: string) {
-    this.getUserInfo(email).subscribe(user => {
-      if (user[0].password === password) {
-        this.storeUserInfo(user[0]);
-        this.isAuth$.next(true);
-        this.router.navigate(['/Courses']);
-      }
-    });
+    if (password && email) {
+      this.getUserInfo(email).subscribe(user => {
+        const userInfo = user[0];
+
+        if (userInfo.password === password) {
+          this.storeUserInfo(userInfo);
+          this.isAuth$.next(true);
+
+          this.router.navigate(['/Courses']);
+        }
+      });
+    }
   }
 
   public getUserInfo(email: string): Observable<User> {
