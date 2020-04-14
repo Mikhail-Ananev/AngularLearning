@@ -41,7 +41,7 @@ export class AuthService {
 
   public getUserInfo(email: string): Observable<User> {
     const url = SERVER_URL + `/users?email=${email}`;
-    console.dir(url);
+
     return this.http.get<User>(url);
   }
 

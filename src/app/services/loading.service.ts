@@ -10,13 +10,10 @@ export class LoadingService {
   constructor() { }
 
   public startLoading() {
-    console.dir('START');
     this.isLoading$.next(true);
   }
 
   public stopLoading() {
-    console.dir('STOP');
-
     setTimeout(() => this.isLoading$.next(false), 500);
   }
 }

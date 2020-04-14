@@ -26,7 +26,6 @@ export class AddEditItemComponent implements OnInit {
   ngOnInit(): void {
     const courseId = this.activatedRoute.snapshot.paramMap.get('id');
 
-    this.loadingService.startLoading();
     this.course = {
       id: 0,
       title: '',
@@ -36,6 +35,8 @@ export class AddEditItemComponent implements OnInit {
     };
 
     if (courseId) {
+      this.loadingService.startLoading();
+
       this.coursesService.getCourseById(+courseId)
         .subscribe(course => {
           this.course = course;
