@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription, Subject } from 'rxjs';
 
@@ -11,7 +11,7 @@ import { LoadingService } from 'src/app/services/loading.service';
   templateUrl: './items-list.component.html',
   styleUrls: ['./items-list.component.scss']
 })
-export class ItemsListComponent implements OnInit {
+export class ItemsListComponent implements OnInit, OnDestroy {
   public courses: CourseInfo[];
   public showDeleteDialog: boolean;
 
@@ -77,6 +77,10 @@ export class ItemsListComponent implements OnInit {
     $event.preventDefault();
 
     this.getCourseRequest(this.courses.length);
+  }
+
+  public ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   private getCourseRequest(start: number): void {

@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 
 import { AuthService } from '../../services/auth.service';
 import { UserName } from '../../models/interfaces';
+import { USER_FIRST_NAME, USER_LAST_NAME } from 'src/app/models/const';
 
 @Component({
   selector: 'app-header',
@@ -24,21 +25,24 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.isAuthenticated = this.authService.isAuthenticated();
-    this.userNameInfo = 'Login';
+    this.setUserName();
 
     this.subscriptions.add(this.authService.isAuth$.subscribe((isAuth) => {
       this.isAuthenticated = isAuth;
-    }));
-
-    this.subscriptions.add(this.authService.userName$.subscribe((userName) => {
-      this.userNameInfo = userName.firstName + userName.lastName;
-      console.dir(this.userNameInfo);
-      console.dir(userName);
+      this.setUserName();
     }));
   }
 
   public logOff() {
     this.authService.logout();
+  }
+
+  public setUserName() {
+    if (this.isAuthenticated) {
+      this.userNameInfo = `${localStorage.getItem(USER_FIRST_NAME)} ${localStorage.getItem(USER_LAST_NAME)}`;
+    } else {
+      this.userNameInfo = '';
+    }
   }
 
   public ngOnDestroy(): void {

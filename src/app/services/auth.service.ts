@@ -11,7 +11,6 @@ import { TOKEN_NAME, USER_FIRST_NAME, USER_LAST_NAME, SERVER_URL } from '../mode
 })
 export class AuthService {
   public isAuth$: Subject<boolean> = new Subject();
-  public userName$: Subject<UserName> = new Subject();
 
   private fakeToken = 'temporary fake token';
 
@@ -28,10 +27,6 @@ export class AuthService {
         if (userInfo.password === password) {
           this.storeUserInfo(userInfo);
           this.isAuth$.next(true);
-          this.userName$.next({
-            firstName: userInfo.firstName,
-            lastName: userInfo.lastName
-          });
 
           this.router.navigate(['/Courses']);
         }
@@ -65,8 +60,6 @@ export class AuthService {
     localStorage.removeItem(USER_FIRST_NAME);
     localStorage.removeItem(USER_LAST_NAME);
     localStorage.removeItem(TOKEN_NAME);
-
-    this.userName$.next({ firstName: 'Login', lastName: '' });
   }
 
   private getToken(): string {
