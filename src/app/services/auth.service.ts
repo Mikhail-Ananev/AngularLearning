@@ -1,13 +1,10 @@
 import { Injectable } from '@angular/core';
-
-import USERS from './../models/mock-users';
-import { User } from '../models/interfaces';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Subject, Observable } from 'rxjs';
 
-export const TOKEN_NAME = 'jwt-token';
-const USER_FIRST_NAME = 'UserFirstName';
-const USER_LAST_NAME = 'UserLastName';
+import { User } from '../models/interfaces';
+import { TOKEN_NAME, USER_FIRST_NAME, USER_LAST_NAME, SERVER_URL } from '../models/const';
 
 @Injectable({
   providedIn: 'root'
@@ -17,20 +14,30 @@ export class AuthService {
 
   private fakeToken = 'temporary fake token';
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private http: HttpClient
+  ) { }
 
-  public login(email: string, password: string): boolean {
-    if (this.checkUser(email, password)) {
-      const user = this.getUserInfo(email);
-      this.storeUserInfo(user);
-      this.isAuth$.next(true);
+  public login(email: string, password: string) {
+    if (password && email) {
+      this.getUserInfo(email).subscribe(user => {
+        const userInfo = user[0];
 
-      this.router.navigate(['/Courses']);
+        if (userInfo.password === password) {
+          this.storeUserInfo(userInfo);
+          this.isAuth$.next(true);
 
-      return true;
+          this.router.navigate(['/Courses']);
+        }
+      });
     }
+  }
 
-    return false;
+  public getUserInfo(email: string): Observable<User> {
+    const url = SERVER_URL + `/users?email=${email}`;
+
+    return this.http.get<User>(url);
   }
 
   public logout(): boolean {
@@ -49,24 +56,8 @@ export class AuthService {
     return false;
   }
 
-  public getUserInfo(email: string): User {
-    const user = USERS.find((u) => u.email === email);
-
-    return user;
-  }
-
   private getToken(): string {
     return localStorage.getItem(TOKEN_NAME);
-  }
-
-  private checkUser(email: string, password: string): boolean {
-    const hasUser = USERS.some((u) => {
-      if (u.email === email && u.password === password) {
-        return true;
-      }
-    });
-
-    return hasUser;
   }
 
   private storeUserInfo(user: User) {

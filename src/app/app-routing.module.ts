@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ContentComponent } from './components/content/content.component';
-import { AuthenticationComponent } from './components/authentication/authentication.component';
+
 import { AuthGuard } from './guards/auth.guard';
+
 import { AddEditItemComponent } from './components/add-edit-item/add-edit-item.component';
+import { AuthenticationComponent } from './components/authentication/authentication.component';
+import { ContentComponent } from './components/content/content.component';
 import { NoPageComponent } from './components/no-page/no-page.component';
 
 const routes: Routes = [
@@ -39,7 +41,7 @@ const routes: Routes = [
             canActivate: [AuthGuard]
           },
           {
-            path: ':courseName',
+            path: ':id/:courseName',
             data: {
               breadcrumb: ':courseName',
             },

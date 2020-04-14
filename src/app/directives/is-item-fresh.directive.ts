@@ -1,6 +1,7 @@
 import { Directive, ElementRef, Input, Renderer2, AfterViewInit } from '@angular/core';
 
 @Directive({
+  // tslint:disable-next-line: directive-selector
   selector: '[isItemFresh]'
 })
 export class IsItemFreshDirective implements AfterViewInit {
@@ -8,8 +9,10 @@ export class IsItemFreshDirective implements AfterViewInit {
 
   @Input() public isItemFresh: Date;
 
-  constructor(private renderer: Renderer2, private elRef: ElementRef) {
-  }
+  constructor(
+    private renderer: Renderer2,
+    private elRef: ElementRef
+  ) { }
 
   public ngAfterViewInit(): void {
     this.isCourseFresh(this.isItemFresh);

@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { CourseInfo } from '../../models/interfaces';
-import { CoursesService } from 'src/app/services/courses.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+
+import { CourseInfo, CourseMinInfo } from '../../models/interfaces';
+import { CoursesService } from '../../services/courses.service';
 
 @Component({
   selector: 'app-items-list',
@@ -9,9 +11,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./items-list.component.scss']
 })
 export class ItemsListComponent implements OnInit {
-  public courses: Array<CourseInfo>;
+  public courses: CourseInfo[];
   public showDeleteDialog: boolean;
+
   private courseId: number;
+  private subscriptions = new Subscription();
 
   @Input() public searchString: string;
 
@@ -21,7 +25,11 @@ export class ItemsListComponent implements OnInit {
   ) { }
 
   public ngOnInit(): void {
-    this.courses = this.coursesService.getCourses();
+    this.initCourses();
+    this.subscriptions.add(this.coursesService.searchFilterUpdated$
+      .subscribe(() => {
+        this.initCourses();
+      }));
   }
 
   public confirmDeleteCourseById(id: number) {
@@ -29,14 +37,16 @@ export class ItemsListComponent implements OnInit {
     this.openDeleteDialog();
   }
 
-  public editCourseById(courseName: string) {
-    this.router.navigate(['/Courses', courseName]);
+  public editCourseById(courseMinInfo: CourseMinInfo) {
+    this.router.navigate(['/Courses', courseMinInfo.id, courseMinInfo.title]);
   }
 
   public deleteCourse(userChoise: boolean) {
     if (userChoise) {
-      this.coursesService.deleteCourse(this.courseId);
-      this.courses = this.coursesService.getCourses();
+      this.coursesService.deleteCourse(this.courseId)
+        .subscribe(() => {
+          this.initCourses();
+        });
     }
 
     this.closeDeleteDialog();
@@ -53,5 +63,24 @@ export class ItemsListComponent implements OnInit {
 
   public openCreatePage() {
     this.router.navigate(['/Courses/New']);
+  }
+
+  public loadMoreCourses($event) {
+    $event.preventDefault();
+
+    this.getCourseRequest(this.courses.length);
+  }
+
+  private getCourseRequest(start: number): void {
+    this.coursesService.getCourses(start)
+      .subscribe(data => {
+        data.forEach((course) => course.creationDate = new Date(course.creationDate));
+        this.courses = [...this.courses, ...data];
+      });
+  }
+
+  private initCourses() {
+    this.courses = [];
+    this.getCourseRequest(0);
   }
 }
