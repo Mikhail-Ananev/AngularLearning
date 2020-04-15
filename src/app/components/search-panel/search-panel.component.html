@@ -1,4 +1,9 @@
 <form>
     <i class="fa fa-search fa-2x" aria-hidden="true"></i>
-    <input type="text" #movieSearchInput placeholder="Text to search" />
+    <input
+        [(ngModel)]="searchString" 
+        type="text"
+        name="searchString"
+        (ngModelChange)="searchStringUpdate.next($event)"
+    >
 </form>
