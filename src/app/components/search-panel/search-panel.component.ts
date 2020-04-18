@@ -18,7 +18,7 @@ export class SearchPanelComponent implements OnInit {
 
   public ngOnInit() {
     this.searchStringUpdate.pipe(
-      filter(text => text.length > 3),
+      filter(text => text.length > 3 || text === ''),
       debounceTime(400),
       distinctUntilChanged())
       .subscribe(data => this.coursesService.setFilter(data)
