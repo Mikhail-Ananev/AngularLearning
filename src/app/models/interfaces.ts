@@ -20,6 +20,11 @@ export interface User {
     password: string;
 }
 
+export interface UserName {
+    firstName: string;
+    lastName: string;
+}
+
 export interface IBreadCrumb {
     label: string;
     url: string;

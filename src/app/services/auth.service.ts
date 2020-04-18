@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Subject, Observable } from 'rxjs';
 
-import { User } from '../models/interfaces';
+import { User, UserName } from '../models/interfaces';
 import { TOKEN_NAME, USER_FIRST_NAME, USER_LAST_NAME, SERVER_URL } from '../models/const';
 
 @Injectable({
@@ -56,6 +56,12 @@ export class AuthService {
     return false;
   }
 
+  public deleteUserInfo() {
+    localStorage.removeItem(USER_FIRST_NAME);
+    localStorage.removeItem(USER_LAST_NAME);
+    localStorage.removeItem(TOKEN_NAME);
+  }
+
   private getToken(): string {
     return localStorage.getItem(TOKEN_NAME);
   }
@@ -64,11 +70,5 @@ export class AuthService {
     localStorage.setItem('UserFirstName', user.firstName);
     localStorage.setItem('UserLastName', user.lastName);
     localStorage.setItem(TOKEN_NAME, this.fakeToken);
-  }
-
-  private deleteUserInfo() {
-    localStorage.removeItem(USER_FIRST_NAME);
-    localStorage.removeItem(USER_LAST_NAME);
-    localStorage.removeItem(TOKEN_NAME);
   }
 }

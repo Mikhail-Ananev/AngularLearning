@@ -4,7 +4,7 @@
         <div *ngIf="isAuthenticated" class="user-container">    
             <span>
                 <fa-icon [icon]="faUser"></fa-icon>
-                User login
+                {{userNameInfo}}
             </span>
             <span (click)="logOff()">
                 <fa-icon [icon]="faSignOutAlt"></fa-icon>

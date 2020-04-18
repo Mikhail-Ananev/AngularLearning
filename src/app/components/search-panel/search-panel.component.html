@@ -1,5 +1,9 @@
-<form #searchForm="ngForm">
+<form>
     <i class="fa fa-search fa-2x" aria-hidden="true"></i>
-    <input type="text" [(ngModel)]="searchString" name="searchString" placeholder="Text to search" />
-    <input type="button" value="Search" (click)="startSearch()" />
+    <input
+        [(ngModel)]="searchString" 
+        type="text"
+        name="searchString"
+        (ngModelChange)="searchStringUpdate.next($event)"
+    >
 </form>

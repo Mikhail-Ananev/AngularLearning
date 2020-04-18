@@ -10,6 +10,7 @@ import { InputDurationComponent } from './input-duration/input-duration.componen
 import { IsItemFreshDirective } from '../directives/is-item-fresh.directive';
 import { ItemComponent } from './item/item.component';
 import { ItemsListComponent } from './items-list/items-list.component';
+import { LoadingComponent } from './loading/loading.component';
 import { MainComponent } from './main/main.component';
 import { NoPageComponent } from './no-page/no-page.component';
 import { OrderByPipe } from '../pipes/order-by.pipe';
@@ -28,6 +29,7 @@ export const AppComponents = [
     IsItemFreshDirective,
     ItemComponent,
     ItemsListComponent,
+    LoadingComponent,
     MainComponent,
     NoPageComponent,
     OrderByPipe,

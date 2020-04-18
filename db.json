@@ -69,8 +69,8 @@
   "users": [
     {
       "id": 0,
-      "firstName": "Admin",
-      "lastName": "",
+      "firstName": "Mikhail",
+      "lastName": "Ananyev",
       "email": "Admin@mail.com",
       "password": "Admin"
     },

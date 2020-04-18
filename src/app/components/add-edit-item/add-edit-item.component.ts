@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { CourseInfo } from '../../models/interfaces';
 import { CoursesService } from '../../services/courses.service';
+import { LoadingService } from '../../services/loading.service';
 
 @Component({
   selector: 'app-add-edit-item',
@@ -18,7 +19,8 @@ export class AddEditItemComponent implements OnInit {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private coursesService: CoursesService
+    private coursesService: CoursesService,
+    private loadingService: LoadingService
   ) { }
 
   ngOnInit(): void {
@@ -33,11 +35,14 @@ export class AddEditItemComponent implements OnInit {
     };
 
     if (courseId) {
+      this.loadingService.startLoading();
+
       this.coursesService.getCourseById(+courseId)
         .subscribe(course => {
           this.course = course;
           this.course.creationDate = new Date(course.creationDate);
           this.formInputDate(this.course.creationDate);
+          this.loadingService.stopLoading();
         });
       this.newCourse = false;
     } else {
@@ -48,15 +53,18 @@ export class AddEditItemComponent implements OnInit {
   }
 
   public saveCourse() {
+    this.loadingService.startLoading();
     this.course.creationDate = new Date(this.creationDate);
 
     this.newCourse
       ? this.coursesService.createCourse(this.course)
         .subscribe(() => {
+          this.loadingService.stopLoading();
           this.router.navigate(['/Courses']);
         })
       : this.coursesService.updateCourse(this.course)
         .subscribe(() => {
+          this.loadingService.stopLoading();
           this.router.navigate(['/Courses']);
         });
   }
