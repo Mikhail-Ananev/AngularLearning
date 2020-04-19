@@ -29,3 +29,19 @@ export interface IBreadCrumb {
     label: string;
     url: string;
 }
+
+export interface UserState {
+    users: UserName[];
+    currentUser: UserName;
+}
+
+export interface CoursesState {
+    courses: CourseInfo[];
+    displayedCourses: CourseInfo[];
+    currentCourse: CourseInfo;
+}
+
+export interface AppState {
+    courses: CoursesState;
+    users: UserState;
+}

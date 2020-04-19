@@ -1,10 +1,13 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription, Subject } from 'rxjs';
+import { Store, select } from '@ngrx/store';
 
-import { CourseInfo, CourseMinInfo } from '../../models/interfaces';
+import { CourseInfo, CourseMinInfo, AppState } from '../../models/interfaces';
 import { CoursesService } from '../../services/courses.service';
 import { LoadingService } from 'src/app/services/loading.service';
+import { selectCoursesList } from 'src/app/store/selectors/courses.selectors';
+import { GetCoursesFromServer } from 'src/app/store/actions/courses.action';
 
 @Component({
   selector: 'app-items-list',
@@ -15,6 +18,8 @@ export class ItemsListComponent implements OnInit, OnDestroy {
   public courses: CourseInfo[];
   public showDeleteDialog: boolean;
 
+  coursesFromStore = this.store.pipe(select(selectCoursesList));
+
   private courseId: number;
   private subscriptions = new Subscription();
 
@@ -23,10 +28,13 @@ export class ItemsListComponent implements OnInit, OnDestroy {
   constructor(
     private coursesService: CoursesService,
     private loadingService: LoadingService,
-    private router: Router
+    private router: Router,
+    private store: Store<AppState>,
   ) { }
 
   public ngOnInit(): void {
+    this.store.dispatch(new GetCoursesFromServer());
+
     this.loadingService.startLoading();
 
     this.initCourses();
@@ -76,7 +84,7 @@ export class ItemsListComponent implements OnInit, OnDestroy {
   public loadMoreCourses($event) {
     $event.preventDefault();
 
-    this.getCourseRequest(this.courses.length);
+    this.getCourseRequest(this.courses.length); // CHANGE
   }
 
   public ngOnDestroy(): void {
@@ -96,6 +104,6 @@ export class ItemsListComponent implements OnInit, OnDestroy {
 
   private initCourses() {
     this.courses = [];
-    this.getCourseRequest(0);
+    this.getCourseRequest(0); // CHANGE
   }
 }
