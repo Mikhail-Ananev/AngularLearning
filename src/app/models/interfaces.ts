@@ -37,7 +37,6 @@ export interface UserState {
 
 export interface CoursesState {
     courses: CourseInfo[];
-    displayedCourses: CourseInfo[];
     currentCourse: CourseInfo;
 }
 

@@ -7,7 +7,7 @@ import { CourseInfo, CourseMinInfo, AppState } from '../../models/interfaces';
 import { CoursesService } from '../../services/courses.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { selectCoursesList } from 'src/app/store/selectors/courses.selectors';
-import { GetCoursesFromServer } from 'src/app/store/actions/courses.action';
+import { GetCoursesFromServer, GetCoursesFromServerComplete } from 'src/app/store/actions/courses.action';
 
 @Component({
   selector: 'app-items-list',
@@ -17,8 +17,7 @@ import { GetCoursesFromServer } from 'src/app/store/actions/courses.action';
 export class ItemsListComponent implements OnInit, OnDestroy {
   public courses: CourseInfo[];
   public showDeleteDialog: boolean;
-
-  coursesFromStore = this.store.pipe(select(selectCoursesList));
+  public coursesFromStore = this.store.pipe(select(selectCoursesList));
 
   private courseId: number;
   private subscriptions = new Subscription();
@@ -33,9 +32,7 @@ export class ItemsListComponent implements OnInit, OnDestroy {
   ) { }
 
   public ngOnInit(): void {
-    this.store.dispatch(new GetCoursesFromServer());
-
-    this.loadingService.startLoading();
+    // this.loadingService.startLoading();
 
     this.initCourses();
     this.subscriptions.add(this.coursesService.searchFilterUpdated$
@@ -84,7 +81,7 @@ export class ItemsListComponent implements OnInit, OnDestroy {
   public loadMoreCourses($event) {
     $event.preventDefault();
 
-    this.getCourseRequest(this.courses.length); // CHANGE
+    // this.getCourseRequest(this.courses.length); // CHANGE
   }
 
   public ngOnDestroy(): void {
@@ -92,18 +89,16 @@ export class ItemsListComponent implements OnInit, OnDestroy {
   }
 
   private getCourseRequest(start: number): void {
-    this.loadingService.startLoading();
-
     this.coursesService.getCourses(start)
       .subscribe(data => {
         data.forEach((course) => course.creationDate = new Date(course.creationDate));
-        this.courses = [...this.courses, ...data];
-        this.loadingService.stopLoading();
-      });
+        console.log('INCOMING', data);
+        console.log('STORE', this.store);
+        this.store.dispatch(new GetCoursesFromServerComplete(data));
+    });
   }
 
   private initCourses() {
-    this.courses = [];
-    this.getCourseRequest(0); // CHANGE
+    this.getCourseRequest(0);
   }
 }

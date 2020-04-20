@@ -9,9 +9,11 @@ export class OrderByPipe implements PipeTransform {
 
   transform(courses: Array<CourseInfo>, searchString: string): Array<CourseInfo> {
     const sortByCreationDate = (inputArr: Array<CourseInfo>) => {
-      return inputArr.sort((a, b) => {
-        return b.creationDate.getTime() - a.creationDate.getTime();
-      });
+      if (inputArr !== null) {
+        return inputArr.slice().sort((a, b) => {
+          return b.creationDate.getTime() - a.creationDate.getTime();
+        });
+      }
     };
 
     if (searchString) {

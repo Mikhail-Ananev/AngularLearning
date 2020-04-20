@@ -2,8 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 
-import { CourseInfo } from '../models/interfaces';
+import { CourseInfo, AppState } from '../models/interfaces';
 import { SERVER_URL } from '../models/const';
+import { Store, select } from '@ngrx/store';
+import { GetCoursesFromServerComplete } from '../store/actions/courses.action';
+import { selectCoursesList } from '../store/selectors/courses.selectors';
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +18,11 @@ export class CoursesService {
   private filter = '';
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private store: Store<AppState>
   ) { }
 
-  public getCourses(start: number): Observable<CourseInfo[]> {
+  public getCourses(start: number): Observable<CourseInfo[]>{
     const url = SERVER_URL + `/courses?_start=${start}&_limit=${this.count}&q=${this.filter}`;
 
     return this.http.get<CourseInfo[]>(url);

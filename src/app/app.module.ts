@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -28,7 +29,10 @@ import { appReducers } from './store/reducers/app.reducers';
     FontAwesomeModule,
     FormsModule,
     HttpClientModule,
-    StoreModule.forRoot(appReducers)
+    StoreModule.forRoot(appReducers),
+    StoreDevtoolsModule.instrument({
+      maxAge: 5
+    })
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
