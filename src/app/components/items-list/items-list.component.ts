@@ -7,7 +7,7 @@ import { CourseInfo, CourseMinInfo, AppState } from '../../models/interfaces';
 import { CoursesService } from '../../services/courses.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { selectCoursesList } from 'src/app/store/selectors/courses.selectors';
-import { GetCourses } from 'src/app/store/actions/courses.action';
+import { GetCourses, DeleteCourse } from 'src/app/store/actions/courses.action';
 
 @Component({
   selector: 'app-items-list',
@@ -17,7 +17,7 @@ import { GetCourses } from 'src/app/store/actions/courses.action';
 export class ItemsListComponent implements OnInit, OnDestroy {
   public courses: CourseInfo[];
   public showDeleteDialog: boolean;
-  public coursesFromStore = this.store.pipe(select(selectCoursesList));
+  public coursesFromStore = this.store$.pipe(select(selectCoursesList));
 
   private courseId: number;
   private filter = '';
@@ -27,18 +27,17 @@ export class ItemsListComponent implements OnInit, OnDestroy {
 
   constructor(
     private coursesService: CoursesService,
-    private loadingService: LoadingService,
     private router: Router,
-    private store: Store<AppState>,
+    private store$: Store<AppState>,
   ) { }
 
   public ngOnInit(): void {
-    this.subscriptions.add(this.store.pipe(select(selectCoursesList))
+    this.subscriptions.add(this.store$.pipe(select(selectCoursesList))
       .subscribe((courses) => this.courses = courses));
     this.subscriptions.add(this.coursesService.searchFilterUpdated$
       .subscribe(filter => this.filter = filter));
 
-    this.store.dispatch(GetCourses({ start: 0, filter: '' }));
+    this.store$.dispatch(GetCourses({ start: 0, filter: '' }));
   }
 
   public confirmDeleteCourseById(id: number) {
@@ -52,13 +51,7 @@ export class ItemsListComponent implements OnInit, OnDestroy {
 
   public deleteCourse(userChoise: boolean) {
     if (userChoise) {
-      this.loadingService.startLoading();
-
-      this.coursesService.deleteCourse(this.courseId)
-        .subscribe(() => {
-          // this.initCourses();
-          this.loadingService.stopLoading();
-        });
+      this.store$.dispatch(DeleteCourse({ courseId: this.courseId }));
     }
 
     this.closeDeleteDialog();
@@ -79,26 +72,11 @@ export class ItemsListComponent implements OnInit, OnDestroy {
 
   public loadMoreCourses($event) {
     $event.preventDefault();
-    // this.store.dispatch(new GetAdditionalCourses());
-    this.store.dispatch(GetCourses({ start: this.courses.length, filter: this.filter }));
-    // this.getCourseRequest(this.courses.length); // CHANGE
+
+    this.store$.dispatch(GetCourses({ start: this.courses.length, filter: this.filter }));
   }
 
   public ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
-
-  // private getCourseRequest(start: number): void {
-  //   this.coursesService.getCourses(start)
-  //     .subscribe(data => {
-  //       data.forEach((course) => course.creationDate = new Date(course.creationDate));
-  //       console.log('INCOMING', data);
-  //       console.log('STORE', this.store);
-  //       this.store.dispatch(new GetCoursesFromServerComplete(data));
-  //   });
-  // }
-
-  // private initCourses() {
-  //   this.getCourseRequest(0);
-  // }
 }

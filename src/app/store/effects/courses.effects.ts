@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { EMPTY, Observable } from 'rxjs';
-import { map, mergeMap, catchError, withLatestFrom, switchMap } from 'rxjs/operators';
+import { EMPTY, Observable, of } from 'rxjs';
+import { map, mergeMap, catchError, withLatestFrom, switchMap, exhaustMap, concatMap, tap } from 'rxjs/operators';
 
-import { CoursesActions, GetCourses, GetCoursesSuccess, GetCourse, GetCourseSuccess } from '../actions/courses.action';
+import { GetCourses, GetCoursesSuccess, GetCourse, GetCourseSuccess, ClearCoursesList, CreateCourse, UpdateCourse, DeleteCourse } from '../actions/courses.action';
 import { CoursesService } from 'src/app/services/courses.service';
 import { Store, Action } from '@ngrx/store';
 import { AppState } from 'src/app/models/interfaces';
 import { startLoading, stopLoading } from '../actions/loading.action';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class CoursesEffects {
@@ -46,9 +47,58 @@ export class CoursesEffects {
         );
     })));
 
-    constructor(
-    private actions$: Actions,
-    private coursesService: CoursesService,
-    private store$: Store<AppState>
-    ) {}
+  createCourse$ = createEffect(() => this.actions$.pipe(
+    ofType(CreateCourse),
+    map(action => action.course),
+    tap(course => {
+      this.store$.dispatch(startLoading());
+
+      this.coursesService.createCourse(course)
+        .subscribe(() => {
+          this.stopLoadAndRedirectToMainPage();
+        });
+    })),
+    { dispatch: false }
+  );
+
+  updateCourse$ = createEffect(() => this.actions$.pipe(
+    ofType(UpdateCourse),
+    map(action => action.course),
+    tap(course => {
+      this.store$.dispatch(startLoading());
+
+      this.coursesService.updateCourse(course)
+        .subscribe(() => {
+          this.stopLoadAndRedirectToMainPage();
+        });
+    })),
+    { dispatch: false }
+  );
+
+  deleteCourse$ = createEffect(() => this.actions$.pipe(
+    ofType(DeleteCourse),
+    map(action => action.courseId),
+    tap(courseId => {
+      this.store$.dispatch(startLoading());
+
+      this.coursesService.deleteCourse(courseId)
+        .subscribe(() => {
+          this.store$.dispatch(ClearCoursesList());
+          this.store$.dispatch(GetCourses({ start: 0, filter: '' }));
+        });
+    })),
+    { dispatch: false }
+  );
+
+  constructor(
+  private actions$: Actions,
+  private coursesService: CoursesService,
+  private store$: Store<AppState>,
+  private router: Router,
+  ) {}
+
+  private stopLoadAndRedirectToMainPage() {
+    this.store$.dispatch(stopLoading());
+    this.router.navigate(['/Courses']);
+  }
 }

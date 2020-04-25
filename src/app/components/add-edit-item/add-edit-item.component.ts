@@ -1,13 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { Store, select } from '@ngrx/store';
 
 import { CourseInfo, AppState } from '../../models/interfaces';
 import { CoursesService } from '../../services/courses.service';
 import { LoadingService } from '../../services/loading.service';
-import { Store, select } from '@ngrx/store';
-import { GetCourse } from 'src/app/store/actions/courses.action';
-import { Subscription } from 'rxjs';
-import { selectCurrentCourse } from 'src/app/store/selectors/courses.selectors';
+import { selectCurrentCourse } from '../../store/selectors/courses.selectors';
+import {
+  GetCourse,
+  CreateCourse,
+  ClearCurrentCourseState,
+  ClearCoursesList,
+  UpdateCourse
+} from 'src/app/store/actions/courses.action';
 
 @Component({
   selector: 'app-add-edit-item',
@@ -32,6 +38,7 @@ export class AddEditItemComponent implements OnInit {
 
   ngOnInit(): void {
     const courseId = this.activatedRoute.snapshot.paramMap.get('id');
+    this.store$.dispatch(ClearCoursesList());
 
     this.subscriptions.add(this.store$.pipe(select(selectCurrentCourse))
       .subscribe((course) => {
@@ -54,19 +61,15 @@ export class AddEditItemComponent implements OnInit {
     this.course.creationDate = new Date(this.creationDate);
 
     this.newCourse
-      ? this.coursesService.createCourse(this.course)
-        .subscribe(() => {
-          this.loadingService.stopLoading();
-          this.router.navigate(['/Courses']);
-        })
-      : this.coursesService.updateCourse(this.course)
-        .subscribe(() => {
-          this.loadingService.stopLoading();
-          this.router.navigate(['/Courses']);
-        });
+      ? this.store$.dispatch(CreateCourse({ course: this.course}))
+      : this.store$.dispatch(UpdateCourse({ course: this.course}));
   }
 
   public cancelCreation() {
+    if (!this.newCourse) {
+      this.store$.dispatch(ClearCurrentCourseState());
+    }
+
     this.router.navigate(['/Courses']);
   }
 
