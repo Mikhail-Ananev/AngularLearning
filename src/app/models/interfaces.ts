@@ -40,7 +40,17 @@ export interface CoursesState {
     currentCourse: CourseInfo;
 }
 
+export interface LoadingState {
+    loading: boolean;
+}
+
 export interface AppState {
     courses: CoursesState;
     users: UserState;
+    loading: LoadingState;
+}
+
+export interface CourseRequestParams {
+    start: number;
+    filter: string;
 }

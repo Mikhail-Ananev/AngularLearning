@@ -1,58 +1,45 @@
-import { Action } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 import { CourseInfo } from 'src/app/models/interfaces';
 
 export enum CoursesActions {
-    GetCoursesFromServer = '[Courses] Get courses from server',
-    GetCoursesFromServerComplete = '[Courses] Get courses from server complete',
-    GetDisplayingCourses = '[Courses] Get courses for displaying',
-    GetDisplayingCoursesComplete = '[Courses] Get courses for displaying complete',
-    GetAdditionalCourses = '[Courses] Add courses to displaying courses',
-    GetAdditionalCoursesComplete = '[Courses] Add courses to displaying courses complete',
+    GetCourses = '[Courses] Get courses from server',
+    GetCoursesComplete = '[Courses] Get courses from server complete',
     GetCourse = '[Courses] Get course',
     GetCourseComplete = '[Courses] Get course complete',
+    ClearCoursesList = '[Courses] Clear courses list',
+    CreateCourse = '[Courses] Create new course',
+    CreateCourseComplete = '[Courses] Create new course complete',
 }
 
-export class GetCoursesFromServer implements Action {
-    public readonly type = CoursesActions.GetCoursesFromServer;
-}
+export const GetCourses = createAction(
+    CoursesActions.GetCourses,
+    props<{start: number, filter: string}>()
+);
 
-export class GetCoursesFromServerComplete implements Action {
-    public readonly type = CoursesActions.GetCoursesFromServerComplete;
-    constructor(public payload: CourseInfo[]) { }
-}
+export const GetCoursesSuccess = createAction(
+    CoursesActions.GetCoursesComplete,
+    props<{courses: CourseInfo[]}>()
+);
 
-export class GetDisplayingCourses implements Action {
-    public readonly type = CoursesActions.GetDisplayingCourses;
-}
+export const GetCourse = createAction(
+    CoursesActions.GetCourse,
+    props<{courseId: number}>()
+);
 
-export class GetDisplayingCoursesComplete implements Action {
-    public readonly type = CoursesActions.GetDisplayingCoursesComplete;
-    constructor(public payload: CourseInfo[]) { }
-}
+export const GetCourseSuccess = createAction(
+    CoursesActions.GetCourseComplete,
+    props<{course: CourseInfo}>()
+);
 
-export class GetAdditionalCourses implements Action {
-    public readonly type = CoursesActions.GetAdditionalCourses;
-}
+export const ClearCoursesList = createAction(
+    CoursesActions.ClearCoursesList
+);
 
-export class GetAdditionalCoursesComplete implements Action {
-    public readonly type = CoursesActions.GetAdditionalCoursesComplete;
-    constructor(public payload: CourseInfo[]) { }
-}
+export const CreateCourse = createAction(
+    CoursesActions.CreateCourse,
+    props<{course: CourseInfo}>()
+);
 
-export class GetCourse implements Action {
-    public readonly type = CoursesActions.GetCourse;
-}
-
-export class GetCourseComplete implements Action {
-    public readonly type = CoursesActions.GetCourseComplete;
-    constructor(public payload: CourseInfo) { }
-}
-
-export type CoursesAction = GetCoursesFromServer
-    | GetCoursesFromServerComplete
-    | GetDisplayingCourses
-    | GetDisplayingCoursesComplete
-    | GetAdditionalCourses
-    | GetAdditionalCoursesComplete
-    | GetCourse
-    | GetCourseComplete;
+export const CreateCourseComplete = createAction(
+    CoursesActions.CreateCourseComplete
+);

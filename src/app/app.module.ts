@@ -14,6 +14,8 @@ import { httpInterceptorProviders } from './interceptors';
 import { AppComponent } from './app.component';
 import { AppComponents } from './components';
 import { appReducers } from './store/reducers/app.reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { CoursesEffects } from './store/effects/courses.effects';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { appReducers } from './store/reducers/app.reducers';
     StoreModule.forRoot(appReducers),
     StoreDevtoolsModule.instrument({
       maxAge: 5
-    })
+     }),
+    EffectsModule.forRoot([CoursesEffects])
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]

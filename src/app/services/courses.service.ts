@@ -2,28 +2,26 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 
-import { CourseInfo, AppState } from '../models/interfaces';
+import { CourseInfo, AppState, CourseRequestParams } from '../models/interfaces';
 import { SERVER_URL } from '../models/const';
 import { Store, select } from '@ngrx/store';
-import { GetCoursesFromServerComplete } from '../store/actions/courses.action';
 import { selectCoursesList } from '../store/selectors/courses.selectors';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CoursesService {
-  public searchFilterUpdated$: Subject<boolean> = new Subject();
+  public searchFilterUpdated$: Subject<string> = new Subject();
 
-  private count = 4;
-  private filter = '';
+  private limit = 4;
 
   constructor(
     private http: HttpClient,
-    private store: Store<AppState>
   ) { }
 
-  public getCourses(start: number): Observable<CourseInfo[]>{
-    const url = SERVER_URL + `/courses?_start=${start}&_limit=${this.count}&q=${this.filter}`;
+  public getCourses(params: CourseRequestParams): Observable<CourseInfo[]> {
+    this.searchFilterUpdated$.next(params.filter);
+    const url = SERVER_URL + `/courses?_start=${params.start}&_limit=${this.limit}&q=${params.filter}`;
 
     return this.http.get<CourseInfo[]>(url);
   }
@@ -62,8 +60,8 @@ export class CoursesService {
     return new Date().getMilliseconds();
   }
 
-  public setFilter(filterStr: string): void {
-    this.filter = filterStr;
-    this.searchFilterUpdated$.next();
-  }
+  // public setFilter(filterStr: string): void {
+  //   this.filter = filterStr;
+  //   this.searchFilterUpdated$.next();
+  // }
 }

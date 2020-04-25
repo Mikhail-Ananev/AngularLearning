@@ -5,18 +5,10 @@ const selectCourses = (state: AppState) => state.courses;
 
 export const selectCoursesList = createSelector(
     selectCourses,
-    (state: CoursesState) => {
-        console.dir(state);
-        return state.courses;
-    }
+    (state: CoursesState) => state.courses
 );
 
-// export const selectDisplayedCoursesList = createSelector(
-//     selectCourses,
-//     (state: CoursesState) => state.displayedCourses
-// );
-
-// export const selectCurrentCoursesList = createSelector(
-//     selectCourses,
-//     (state: CoursesState) => state.currentCourse
-// );
+export const selectCurrentCourse = createSelector(
+    selectCourses,
+    (state: CoursesState) => state.currentCourse
+);

@@ -1,33 +1,18 @@
-import { CoursesAction, CoursesActions } from '../actions/courses.action';
+import * as coursesAction from '../actions/courses.action';
 import { initialCoursesState } from '../state/courses.state';
-import { CoursesState } from 'src/app/models/interfaces';
+import { createReducer, on } from '@ngrx/store';
 
-export const coursesReducers = (
-    state = initialCoursesState,
-    action: CoursesAction
-): CoursesState => {
-    switch (action.type) {
-        case CoursesActions.GetCoursesFromServerComplete:
-            return {
-                ...state,
-                courses: action.payload
-            };
-        case CoursesActions.GetDisplayingCoursesComplete:
-            return {
-                ...state,
-                courses: action.payload
-            };
-        case CoursesActions.GetAdditionalCoursesComplete:
-            return {
-                ...state,
-                courses: action.payload
-            };
-        case CoursesActions.GetCourseComplete:
-            return {
-                ...state,
-                currentCourse: action.payload
-            };
-        default:
-            return state;
-    }
-};
+export const coursesReducer = createReducer(
+    initialCoursesState,
+    on(coursesAction.GetCourses, state => ({...state, loading: true})),
+    on(
+        coursesAction.GetCoursesSuccess,
+        (state, action) => ({ ...state, courses: [...state.courses, ...action.courses] })
+    ),
+    on(coursesAction.GetCourse, state => ({...state })),
+    on(
+        coursesAction.GetCourseSuccess,
+        (state, action) => ({ ...state, currentCourse: action.course })
+    ),
+    on(coursesAction.ClearCoursesList, state => ({ ...state, courses: [] })),
+);

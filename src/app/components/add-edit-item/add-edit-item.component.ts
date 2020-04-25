@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { CourseInfo } from '../../models/interfaces';
+import { CourseInfo, AppState } from '../../models/interfaces';
 import { CoursesService } from '../../services/courses.service';
 import { LoadingService } from '../../services/loading.service';
+import { Store, select } from '@ngrx/store';
+import { GetCourse } from 'src/app/store/actions/courses.action';
+import { Subscription } from 'rxjs';
+import { selectCurrentCourse } from 'src/app/store/selectors/courses.selectors';
 
 @Component({
   selector: 'app-add-edit-item',
@@ -13,37 +17,30 @@ import { LoadingService } from '../../services/loading.service';
 export class AddEditItemComponent implements OnInit {
   public course: CourseInfo;
   public creationDate: string;
+  public duration = 0;
 
   private newCourse: boolean;
+  private subscriptions = new Subscription();
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private coursesService: CoursesService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private store$: Store<AppState>,
   ) { }
 
   ngOnInit(): void {
     const courseId = this.activatedRoute.snapshot.paramMap.get('id');
 
-    this.course = {
-      id: 0,
-      title: '',
-      description: '',
-      duration: 0,
-      creationDate: new Date(),
-    };
+    this.subscriptions.add(this.store$.pipe(select(selectCurrentCourse))
+      .subscribe((course) => {
+        this.course = { ...course };
+        this.formInputDate(course.creationDate);
+      }));
 
     if (courseId) {
-      this.loadingService.startLoading();
-
-      this.coursesService.getCourseById(+courseId)
-        .subscribe(course => {
-          this.course = course;
-          this.course.creationDate = new Date(course.creationDate);
-          this.formInputDate(this.course.creationDate);
-          this.loadingService.stopLoading();
-        });
+      this.store$.dispatch(GetCourse({ courseId: +courseId }));
       this.newCourse = false;
     } else {
       this.course.id = this.coursesService.generateNewCourseId();

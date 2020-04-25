@@ -1,8 +1,10 @@
 import { ActionReducerMap } from '@ngrx/store';
 import { AppState } from 'src/app/models/interfaces';
-import { coursesReducers } from './courses.reducers';
+import { coursesReducer } from './courses.reducers';
+import { loadingReducer } from './loading.reducers';
 
 export const appReducers: ActionReducerMap<AppState, any> = {
-    courses: coursesReducers,
+    courses: coursesReducer,
     users: null,
+    loading: loadingReducer
 };
