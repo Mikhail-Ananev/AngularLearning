@@ -16,6 +16,7 @@ import { AppComponents } from './components';
 import { appReducers } from './store/reducers/app.reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { CoursesEffects } from './store/effects/courses.effects';
+import { UserEffects } from './store/effects/user.effects';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,7 @@ import { CoursesEffects } from './store/effects/courses.effects';
     StoreDevtoolsModule.instrument({
       maxAge: 5
      }),
-    EffectsModule.forRoot([CoursesEffects])
+    EffectsModule.forRoot([CoursesEffects, UserEffects])
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]

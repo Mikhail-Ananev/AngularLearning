@@ -5,10 +5,10 @@ export enum LoadingActions {
     Stop = '[Loading] Stop server request',
 }
 
-export const startLoading = createAction(
+export const StartLoading = createAction(
     LoadingActions.Start
 );
 
-export const stopLoading = createAction(
+export const StopLoading = createAction(
     LoadingActions.Stop
 );

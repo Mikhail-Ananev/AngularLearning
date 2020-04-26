@@ -1,22 +1,31 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { EMPTY, Observable, of } from 'rxjs';
-import { map, mergeMap, catchError, withLatestFrom, switchMap, exhaustMap, concatMap, tap } from 'rxjs/operators';
-
-import { GetCourses, GetCoursesSuccess, GetCourse, GetCourseSuccess, ClearCoursesList, CreateCourse, UpdateCourse, DeleteCourse } from '../actions/courses.action';
-import { CoursesService } from 'src/app/services/courses.service';
 import { Store, Action } from '@ngrx/store';
-import { AppState } from 'src/app/models/interfaces';
-import { startLoading, stopLoading } from '../actions/loading.action';
+import { Observable } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs/operators';
+
 import { Router } from '@angular/router';
+
+import { CoursesService } from '../../services/courses.service';
+import { AppState } from '../../models/interfaces';
+import { StartLoading, StopLoading } from '../actions/loading.action';
+import {
+  GetCourses,
+  GetCoursesSuccess,
+  GetCourse,
+  GetCourseSuccess,
+  ClearCoursesList,
+  CreateCourse,
+  UpdateCourse,
+  DeleteCourse
+} from '../actions/courses.action';
 
 @Injectable()
 export class CoursesEffects {
-
   loadCourses$ = createEffect((): Observable<Action> => this.actions$.pipe(
     ofType(GetCourses),
     switchMap(({ start, filter }) => {
-      this.store$.dispatch(startLoading());
+      this.store$.dispatch(StartLoading());
 
       return this.coursesService.getCourses({ start, filter })
         .pipe(
@@ -25,7 +34,7 @@ export class CoursesEffects {
 
             this.store$.dispatch(GetCoursesSuccess({ courses }));
 
-            return stopLoading();
+            return StopLoading();
           }),
         );
     })));
@@ -33,7 +42,7 @@ export class CoursesEffects {
   loadCourse$ = createEffect((): Observable<Action> => this.actions$.pipe(
     ofType(GetCourse),
     switchMap(({ courseId }) => {
-      this.store$.dispatch(startLoading());
+      this.store$.dispatch(StartLoading());
 
       return this.coursesService.getCourseById(courseId)
         .pipe(
@@ -42,7 +51,7 @@ export class CoursesEffects {
 
             this.store$.dispatch(GetCourseSuccess({ course }));
 
-            return stopLoading();
+            return StopLoading();
           }),
         );
     })));
@@ -51,7 +60,7 @@ export class CoursesEffects {
     ofType(CreateCourse),
     map(action => action.course),
     tap(course => {
-      this.store$.dispatch(startLoading());
+      this.store$.dispatch(StartLoading());
 
       this.coursesService.createCourse(course)
         .subscribe(() => {
@@ -65,7 +74,7 @@ export class CoursesEffects {
     ofType(UpdateCourse),
     map(action => action.course),
     tap(course => {
-      this.store$.dispatch(startLoading());
+      this.store$.dispatch(StartLoading());
 
       this.coursesService.updateCourse(course)
         .subscribe(() => {
@@ -79,7 +88,7 @@ export class CoursesEffects {
     ofType(DeleteCourse),
     map(action => action.courseId),
     tap(courseId => {
-      this.store$.dispatch(startLoading());
+      this.store$.dispatch(StartLoading());
 
       this.coursesService.deleteCourse(courseId)
         .subscribe(() => {
@@ -98,7 +107,7 @@ export class CoursesEffects {
   ) {}
 
   private stopLoadAndRedirectToMainPage() {
-    this.store$.dispatch(stopLoading());
+    this.store$.dispatch(StopLoading());
     this.router.navigate(['/Courses']);
   }
 }

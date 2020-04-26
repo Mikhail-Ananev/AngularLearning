@@ -31,8 +31,8 @@ export interface IBreadCrumb {
 }
 
 export interface UserState {
-    users: UserName[];
-    currentUser: UserName;
+    currentUserName: UserName;
+    isAuthenticated: boolean;
 }
 
 export interface CoursesState {
@@ -46,7 +46,7 @@ export interface LoadingState {
 
 export interface AppState {
     courses: CoursesState;
-    users: UserState;
+    user: UserState;
     loading: LoadingState;
 }
 

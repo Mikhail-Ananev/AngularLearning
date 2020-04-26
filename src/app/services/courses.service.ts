@@ -32,12 +32,6 @@ export class CoursesService {
     return this.http.get<CourseInfo>(url);
   }
 
-  public getCourseByName(title: string): Observable<CourseInfo[]> {
-    const url = SERVER_URL + `/courses?title=${title}`;
-
-    return this.http.get<CourseInfo[]>(url);
-  }
-
   public createCourse(course: CourseInfo) {
     const url = SERVER_URL + '/courses';
 
@@ -59,9 +53,4 @@ export class CoursesService {
   public generateNewCourseId(): number {
     return new Date().getMilliseconds();
   }
-
-  // public setFilter(filterStr: string): void {
-  //   this.filter = filterStr;
-  //   this.searchFilterUpdated$.next();
-  // }
 }
