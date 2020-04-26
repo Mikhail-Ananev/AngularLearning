@@ -5,7 +5,7 @@ import { initialLoadingState } from './loading.state';
 
 export const initialAppState: AppState = {
     courses: initialCoursesState,
-    users: initialUserState,
+    user: initialUserState,
     loading: initialLoadingState
 };
 

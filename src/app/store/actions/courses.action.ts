@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { CourseInfo } from 'src/app/models/interfaces';
+
+import { CourseInfo } from '../../models/interfaces';
 
 export enum CoursesActions {
     GetCourses = '[Courses] Get courses from server',

@@ -1,5 +1,6 @@
-import { AppState, LoadingState } from 'src/app/models/interfaces';
 import { createSelector } from '@ngrx/store';
+
+import { AppState, LoadingState } from '../../models/interfaces';
 
 const selectLoading = (state: AppState) => state.loading;
 

@@ -2,10 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { AuthService } from '../../services/auth.service';
 import { IBreadCrumb, AppState } from '../../models/interfaces';
 import { Store, select } from '@ngrx/store';
-import { selectUser, selectUserAuthenticated } from 'src/app/store/selectors/user.selectors';
+import { selectUserAuthenticated } from 'src/app/store/selectors/user.selectors';
 
 @Component({
   selector: 'app-breadcrumbs',

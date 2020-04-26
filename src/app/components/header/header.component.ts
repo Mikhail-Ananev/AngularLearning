@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
+import { Store, select } from '@ngrx/store';
 
 import { AppState, UserState } from '../../models/interfaces';
-import { Store, select } from '@ngrx/store';
-import { selectUser, selectUserAuthenticated } from 'src/app/store/selectors/user.selectors';
-import { InitUserInfo, ClearUserName } from 'src/app/store/actions/user.action';
+import { selectUser, selectUserAuthenticated } from '../../store/selectors/user.selectors';
+import { InitUserInfo, ClearUserName } from '../../store/actions/user.action';
 
 @Component({
   selector: 'app-header',

@@ -29,8 +29,7 @@ export class UserEffects {
                         this.authService.storeUserInfo(userName);
 
                         this.router.navigate(['/Courses']);
-                    }})
-            );
+            }}));
         })),
         { dispatch: false }
     );

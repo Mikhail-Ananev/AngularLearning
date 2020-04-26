@@ -5,7 +5,6 @@ import { Store, select } from '@ngrx/store';
 
 import { CourseInfo, AppState } from '../../models/interfaces';
 import { CoursesService } from '../../services/courses.service';
-import { LoadingService } from '../../services/loading.service';
 import { selectCurrentCourse } from '../../store/selectors/courses.selectors';
 import {
   GetCourse,
@@ -32,7 +31,6 @@ export class AddEditItemComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private coursesService: CoursesService,
-    private loadingService: LoadingService,
     private store$: Store<AppState>,
   ) { }
 
@@ -57,7 +55,6 @@ export class AddEditItemComponent implements OnInit {
   }
 
   public saveCourse() {
-    this.loadingService.startLoading();
     this.course.creationDate = new Date(this.creationDate);
 
     this.newCourse

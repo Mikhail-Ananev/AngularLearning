@@ -1,5 +1,6 @@
-import { AppState, UserState } from 'src/app/models/interfaces';
 import { createSelector } from '@ngrx/store';
+
+import { AppState, UserState } from '../../models/interfaces';
 
 const selectUserState = (state: AppState) => state.user;
 

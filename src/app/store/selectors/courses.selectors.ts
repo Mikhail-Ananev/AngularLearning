@@ -1,5 +1,7 @@
-import { AppState, CoursesState } from '../../models/interfaces';
 import { createSelector } from '@ngrx/store';
+
+import { AppState, CoursesState } from '../../models/interfaces';
+
 
 const selectCourses = (state: AppState) => state.courses;
 

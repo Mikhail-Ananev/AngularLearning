@@ -2,10 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 
-import { CourseInfo, AppState, CourseRequestParams } from '../models/interfaces';
+import { CourseInfo, CourseRequestParams } from '../models/interfaces';
 import { SERVER_URL } from '../models/const';
-import { Store, select } from '@ngrx/store';
-import { selectCoursesList } from '../store/selectors/courses.selectors';
 
 @Injectable({
   providedIn: 'root'

@@ -1,13 +1,12 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription, Subject } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 
 import { CourseInfo, CourseMinInfo, AppState } from '../../models/interfaces';
 import { CoursesService } from '../../services/courses.service';
-import { LoadingService } from 'src/app/services/loading.service';
-import { selectCoursesList } from 'src/app/store/selectors/courses.selectors';
-import { GetCourses, DeleteCourse } from 'src/app/store/actions/courses.action';
+import { selectCoursesList } from '../../store/selectors/courses.selectors';
+import { GetCourses, DeleteCourse } from '../../store/actions/courses.action';
 
 @Component({
   selector: 'app-items-list',
