@@ -1,20 +1,26 @@
-import * as coursesAction from '../actions/courses.action';
-import { initialCoursesState } from '../state/courses.state';
 import { createReducer, on } from '@ngrx/store';
+
+import { initialCoursesState } from '../state/courses.state';
+import {
+    GetCoursesSuccess,
+    ClearCoursesList,
+    GetCourseSuccess,
+    ClearCurrentCourseState
+} from '../actions/courses.action';
 
 export const coursesReducer = createReducer(
     initialCoursesState,
     on(
-        coursesAction.GetCoursesSuccess,
+        GetCoursesSuccess,
         (state, action) => ({ ...state, courses: [...state.courses, ...action.courses] })
     ),
     on(
-        coursesAction.GetCourseSuccess,
+        GetCourseSuccess,
         (state, action) => ({ ...state, currentCourse: action.course })
     ),
-    on(coursesAction.ClearCoursesList, state => ({ ...state, courses: [] })),
+    on(ClearCoursesList, state => ({ ...state, courses: [] })),
     on(
-        coursesAction.ClearCurrentCourseState,
+        ClearCurrentCourseState,
         state => ({ ...state, currentCourse: initialCoursesState.currentCourse })
     ),
 );
