@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
+import { Store, select } from '@ngrx/store';
 
-import { AuthService } from '../../services/auth.service';
-import { UserName } from '../../models/interfaces';
-import { USER_FIRST_NAME, USER_LAST_NAME } from 'src/app/models/const';
+import { AppState, UserState } from '../../models/interfaces';
+import { selectUser, selectUserAuthenticated } from '../../store/selectors/user.selectors';
+import { InitUserInfo, ClearUserName } from '../../store/actions/user.action';
 
 @Component({
   selector: 'app-header',
@@ -20,26 +21,27 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private subscriptions = new Subscription();
 
   constructor(
-    private authService: AuthService,
+    private store$: Store<AppState>,
   ) { }
 
   public ngOnInit(): void {
-    this.isAuthenticated = this.authService.isAuthenticated();
-    this.setUserName();
+    this.store$.dispatch(InitUserInfo());
+    this.store$.pipe(select(selectUserAuthenticated))
+      .subscribe(isAuth => this.isAuthenticated = isAuth);
 
-    this.subscriptions.add(this.authService.isAuth$.subscribe((isAuth) => {
-      this.isAuthenticated = isAuth;
-      this.setUserName();
-    }));
+    this.subscriptions.add(this.store$.pipe(select(selectUser))
+      .subscribe((user) => {
+        this.setUserName(user);
+      }));
   }
 
   public logOff() {
-    this.authService.logout();
+    this.store$.dispatch(ClearUserName());
   }
 
-  public setUserName() {
-    if (this.isAuthenticated) {
-      this.userNameInfo = `${localStorage.getItem(USER_FIRST_NAME)} ${localStorage.getItem(USER_LAST_NAME)}`;
+  public setUserName(user: UserState) {
+    if (user.isAuthenticated) {
+      this.userNameInfo = `${user.currentUserName.firstName} ${user.currentUserName.lastName}`;
     } else {
       this.userNameInfo = '';
     }

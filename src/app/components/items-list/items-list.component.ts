@@ -1,10 +1,12 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription, Subject } from 'rxjs';
+import { Subscription } from 'rxjs';
+import { Store, select } from '@ngrx/store';
 
-import { CourseInfo, CourseMinInfo } from '../../models/interfaces';
+import { CourseInfo, CourseMinInfo, AppState } from '../../models/interfaces';
 import { CoursesService } from '../../services/courses.service';
-import { LoadingService } from 'src/app/services/loading.service';
+import { selectCoursesList } from '../../store/selectors/courses.selectors';
+import { GetCourses, DeleteCourse } from '../../store/actions/courses.action';
 
 @Component({
   selector: 'app-items-list',
@@ -14,27 +16,27 @@ import { LoadingService } from 'src/app/services/loading.service';
 export class ItemsListComponent implements OnInit, OnDestroy {
   public courses: CourseInfo[];
   public showDeleteDialog: boolean;
+  public coursesFromStore = this.store$.pipe(select(selectCoursesList));
 
   private courseId: number;
+  private filter = '';
   private subscriptions = new Subscription();
 
   @Input() public searchString: string;
 
   constructor(
     private coursesService: CoursesService,
-    private loadingService: LoadingService,
-    private router: Router
+    private router: Router,
+    private store$: Store<AppState>,
   ) { }
 
   public ngOnInit(): void {
-    this.loadingService.startLoading();
-
-    this.initCourses();
+    this.subscriptions.add(this.store$.pipe(select(selectCoursesList))
+      .subscribe((courses) => this.courses = courses));
     this.subscriptions.add(this.coursesService.searchFilterUpdated$
-      .subscribe(() => {
-        this.initCourses();
-        this.loadingService.stopLoading();
-      }));
+      .subscribe(filter => this.filter = filter));
+
+    this.store$.dispatch(GetCourses({ start: 0, filter: '' }));
   }
 
   public confirmDeleteCourseById(id: number) {
@@ -48,13 +50,7 @@ export class ItemsListComponent implements OnInit, OnDestroy {
 
   public deleteCourse(userChoise: boolean) {
     if (userChoise) {
-      this.loadingService.startLoading();
-
-      this.coursesService.deleteCourse(this.courseId)
-        .subscribe(() => {
-          this.initCourses();
-          this.loadingService.stopLoading();
-        });
+      this.store$.dispatch(DeleteCourse({ courseId: this.courseId }));
     }
 
     this.closeDeleteDialog();
@@ -76,26 +72,10 @@ export class ItemsListComponent implements OnInit, OnDestroy {
   public loadMoreCourses($event) {
     $event.preventDefault();
 
-    this.getCourseRequest(this.courses.length);
+    this.store$.dispatch(GetCourses({ start: this.courses.length, filter: this.filter }));
   }
 
   public ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
-  }
-
-  private getCourseRequest(start: number): void {
-    this.loadingService.startLoading();
-
-    this.coursesService.getCourses(start)
-      .subscribe(data => {
-        data.forEach((course) => course.creationDate = new Date(course.creationDate));
-        this.courses = [...this.courses, ...data];
-        this.loadingService.stopLoading();
-      });
-  }
-
-  private initCourses() {
-    this.courses = [];
-    this.getCourseRequest(0);
   }
 }

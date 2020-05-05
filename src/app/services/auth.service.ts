@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { Subject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { User, UserName } from '../models/interfaces';
 import { TOKEN_NAME, USER_FIRST_NAME, USER_LAST_NAME, SERVER_URL } from '../models/const';
@@ -10,42 +9,16 @@ import { TOKEN_NAME, USER_FIRST_NAME, USER_LAST_NAME, SERVER_URL } from '../mode
   providedIn: 'root'
 })
 export class AuthService {
-  public isAuth$: Subject<boolean> = new Subject();
-
   private fakeToken = 'temporary fake token';
 
   constructor(
-    private router: Router,
     private http: HttpClient
   ) { }
-
-  public login(email: string, password: string) {
-    if (password && email) {
-      this.getUserInfo(email).subscribe(user => {
-        const userInfo = user[0];
-
-        if (userInfo.password === password) {
-          this.storeUserInfo(userInfo);
-          this.isAuth$.next(true);
-
-          this.router.navigate(['/Courses']);
-        }
-      });
-    }
-  }
 
   public getUserInfo(email: string): Observable<User> {
     const url = SERVER_URL + `/users?email=${email}`;
 
     return this.http.get<User>(url);
-  }
-
-  public logout(): boolean {
-    this.deleteUserInfo();
-    this.isAuth$.next(false);
-
-    this.router.navigate(['/Login']);
-    return true;
   }
 
   public isAuthenticated(): boolean {
@@ -66,9 +39,16 @@ export class AuthService {
     return localStorage.getItem(TOKEN_NAME);
   }
 
-  private storeUserInfo(user: User) {
+  public storeUserInfo(user: UserName) {
     localStorage.setItem('UserFirstName', user.firstName);
     localStorage.setItem('UserLastName', user.lastName);
     localStorage.setItem(TOKEN_NAME, this.fakeToken);
+  }
+
+  public getStoredUserInfo(): UserName {
+    return {
+      firstName: localStorage.getItem('UserFirstName'),
+      lastName: localStorage.getItem('UserLastName'),
+    };
   }
 }

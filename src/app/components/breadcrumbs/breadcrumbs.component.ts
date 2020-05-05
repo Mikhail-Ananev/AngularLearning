@@ -2,8 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { AuthService } from '../../services/auth.service';
-import { IBreadCrumb } from '../../models/interfaces';
+import { IBreadCrumb, AppState } from '../../models/interfaces';
+import { Store, select } from '@ngrx/store';
+import { selectUserAuthenticated } from 'src/app/store/selectors/user.selectors';
 
 @Component({
   selector: 'app-breadcrumbs',
@@ -11,24 +12,19 @@ import { IBreadCrumb } from '../../models/interfaces';
   styleUrls: ['./breadcrumbs.component.scss']
 })
 export class BreadcrumbsComponent implements OnInit, OnDestroy {
-  public isAuthenticated: boolean;
   public breadcrumbs: IBreadCrumb[];
+  public isAuthenticated = this.store$.pipe(select(selectUserAuthenticated));
 
   private subscriptions = new Subscription();
 
   constructor(
-    private authService: AuthService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private store$: Store<AppState>,
   ) {}
 
   public ngOnInit(): void {
-
     this.breadcrumbs = this.buildBreadCrumb(this.activatedRoute.root);
-    this.isAuthenticated = this.authService.isAuthenticated();
-    this.subscriptions.add(this.authService.isAuth$.subscribe((isAuth) => {
-      this.isAuthenticated = isAuth;
-    }));
 
     this.subscriptions.add(this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {

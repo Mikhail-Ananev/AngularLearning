@@ -1,23 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Store, select } from '@ngrx/store';
 
-import { LoadingService } from '../../services/loading.service';
+import { AppState } from '../../models/interfaces';
+import { selectLoadingState } from '../../store/selectors/loading.selectors';
 
 @Component({
   selector: 'app-loading',
   templateUrl: './loading.component.html',
   styleUrls: ['./loading.component.scss']
 })
-export class LoadingComponent implements OnInit {
-  public loading = false;
+export class LoadingComponent {
+  public loading = this.store.pipe(select(selectLoadingState));
 
   constructor(
-    private loaderService: LoadingService
+    private store: Store<AppState>
   ) { }
-
-  public ngOnInit() {
-    this.loaderService.isLoading$
-      .subscribe((value: boolean) => {
-        this.loading = value;
-      });
-  }
 }
