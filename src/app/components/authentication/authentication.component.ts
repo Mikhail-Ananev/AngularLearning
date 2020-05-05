@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 
-import { AuthService } from '../../services/auth.service';
+import { AppState } from '../../models/interfaces';
+import { ClearUserName, Login } from '../../store/actions/user.action';
+import { ClearCoursesList } from '../../store/actions/courses.action';
 
 @Component({
   selector: 'app-authentication',
@@ -11,13 +14,14 @@ export class AuthenticationComponent implements OnInit {
   public loginName: string;
   public loginPassword: string;
 
-  constructor(private authService: AuthService) { }
+  constructor(private store$: Store<AppState>) { }
 
   public ngOnInit() {
-    this.authService.deleteUserInfo();
+    this.store$.dispatch(ClearUserName());
+    this.store$.dispatch(ClearCoursesList());
   }
 
   public login() {
-    this.authService.login(this.loginName, this.loginPassword);
+    this.store$.dispatch(Login({ email: this.loginName, password: this.loginPassword}));
   }
 }

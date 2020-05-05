@@ -1,5 +1,5 @@
-<nav [ngClass]="{'breadcrumb-container_filled': isAuthenticated}">
-    <div *ngIf="isAuthenticated">   
+<nav [ngClass]="{'breadcrumb-container_filled': isAuthenticated | async}">
+    <div *ngIf="isAuthenticated | async">   
         <div class="breadcrumb-container">
             <span *ngFor="let breadcrumb of breadcrumbs">
                 <div *ngIf="breadcrumb != breadcrumbs[breadcrumbs.length - 1];then link else text"></div>

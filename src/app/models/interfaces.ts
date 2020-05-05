@@ -29,3 +29,28 @@ export interface IBreadCrumb {
     label: string;
     url: string;
 }
+
+export interface UserState {
+    currentUserName: UserName;
+    isAuthenticated: boolean;
+}
+
+export interface CoursesState {
+    courses: CourseInfo[];
+    currentCourse: CourseInfo;
+}
+
+export interface LoadingState {
+    loading: boolean;
+}
+
+export interface AppState {
+    courses: CoursesState;
+    user: UserState;
+    loading: LoadingState;
+}
+
+export interface CourseRequestParams {
+    start: number;
+    filter: string;
+}
