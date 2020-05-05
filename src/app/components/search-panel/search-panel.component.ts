@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { filter, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
 
-import { CoursesService } from '../../services/courses.service';
+import { AppState } from '../../models/interfaces';
+import { GetCourses, ClearCoursesList } from '../../store/actions/courses.action';
 
 @Component({
   selector: 'app-search-panel',
@@ -10,18 +12,27 @@ import { CoursesService } from '../../services/courses.service';
   styleUrls: ['./search-panel.component.scss']
 })
 export class SearchPanelComponent implements OnInit {
-  public searchString: string;
+  public searchForm: FormGroup;
 
-  public searchStringUpdate = new Subject<string>();
-
-  constructor(private coursesService: CoursesService) { }
+  constructor(
+    private store: Store<AppState>,
+    private fb: FormBuilder,
+  ) { }
 
   public ngOnInit() {
-    this.searchStringUpdate.pipe(
+    this.searchForm = this.fb.group({
+      filter: ['']
+    });
+
+    this.searchForm.get('filter').valueChanges.pipe(
       filter(text => text.length > 3 || text === ''),
       debounceTime(400),
       distinctUntilChanged())
-      .subscribe(data => this.coursesService.setFilter(data)
-    );
+      .subscribe(data => this.changeFilterProcessing(data));
+  }
+
+  private changeFilterProcessing(data: string) {
+    this.store.dispatch(ClearCoursesList());
+    this.store.dispatch(GetCourses({ start: 0, filter: data }));
   }
 }

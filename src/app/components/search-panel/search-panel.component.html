@@ -1,9 +1,7 @@
-<form>
+<form [formGroup]="searchForm" >
     <i class="fa fa-search fa-2x" aria-hidden="true"></i>
     <input
-        [(ngModel)]="searchString" 
+        formControlName="filter" 
         type="text"
-        name="searchString"
-        (ngModelChange)="searchStringUpdate.next($event)"
     >
 </form>

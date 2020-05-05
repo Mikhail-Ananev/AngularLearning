@@ -9,9 +9,13 @@
         width: 100%;
     }
 
+
     p {
         font-weight: 900;
         font-size: 1.2em;
+        display: inline-block;
+        margin-bottom: .5em;
+        margin-right: 2em;
     }
 
     &_actions {

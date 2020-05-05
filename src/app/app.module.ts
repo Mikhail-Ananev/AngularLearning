@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -15,7 +15,7 @@ import { AppComponents } from './components';
 @NgModule({
   declarations: [
     AppComponent,
-    AppComponents
+    AppComponents,
   ],
   exports: [
   ],
@@ -24,8 +24,14 @@ import { AppComponents } from './components';
     BrowserModule,
     CommonModule,
     FontAwesomeModule,
-    FormsModule,
-    HttpClientModule
+    FormsModule, // Delete??
+    HttpClientModule,
+    ReactiveFormsModule,
+    StoreModule.forRoot(appReducers),
+    StoreDevtoolsModule.instrument({
+      maxAge: 5
+     }),
+    EffectsModule.forRoot([CoursesEffects, UserEffects])
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]

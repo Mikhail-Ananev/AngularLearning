@@ -3,27 +3,35 @@
         <div class="auth_content__header">
             Login
         </div>
-        <div class="auth_content__main">
+        <form [formGroup]="loginForm" class="auth_content__main" (ngSubmit)="login">
             <div class="login-name">
                 <div class="login-name_header">
                     <span class="login-name_header__text">E-mail:</span>
-                    <span>*required</span>
+                    <span
+                        *ngIf="loginForm.controls.loginName.touched && loginForm.controls.loginName.errors?.required"
+                    >
+                        *required
+                    </span>
                 </div>
                 
-                <input type="text" placeholder="Enter e-mail" [(ngModel)]="loginName" />
+                <input type="text" placeholder="Enter e-mail" formControlName="loginName" />
             </div>
             <div class="login-password">
                 <div class="login-password_header">
                     <span class="login-password_header__text">Password:</span>
-                    <span>*required</span>
+                    <span
+                        *ngIf="loginForm.controls.loginPassword.touched && loginForm.controls.loginPassword.errors?.required"
+                    >
+                        *required
+                    </span>
                 </div>
 
-                <input type="password" placeholder="Enter password" [(ngModel)]="loginPassword" />
+                <input type="password" placeholder="Enter password" formControlName="loginPassword" />
             </div>
             <div class="login-action">
                 <a href="#">Forgot password?</a>
-                <button (click)="login()">Login</button>
+                <button [disabled]="!loginForm.valid" (click)="login()">Login</button>
             </div>
-        </div>
+        </form>
     </div>
 </div>
