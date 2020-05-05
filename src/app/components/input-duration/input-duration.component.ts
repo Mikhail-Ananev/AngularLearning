@@ -1,24 +1,14 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-input-duration',
   templateUrl: './input-duration.component.html',
   styleUrls: ['./input-duration.component.scss']
 })
-export class InputDurationComponent{
-  private durationValue = 0;
-
-  @Output() public durationChange = new EventEmitter();
+export class InputDurationComponent {
+  @Input() public durationForm: FormGroup;
 
   constructor() { }
 
-  @Input()
-  get duration() {
-    return this.durationValue;
-  }
-
-  set duration(val) {
-    this.durationValue = val;
-    this.durationChange.emit(this.durationValue);
-  }
 }

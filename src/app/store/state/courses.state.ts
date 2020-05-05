@@ -8,5 +8,6 @@ export const initialCoursesState: CoursesState = {
         description: '',
         duration: 0,
         creationDate: new Date(),
+        authors: []
     },
 };

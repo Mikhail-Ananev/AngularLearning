@@ -15,21 +15,22 @@ export class UserEffects {
         ofType(Login),
         exhaustMap(({ email, password }) => {
             return this.authService.getUserInfo(email)
-            .pipe(
-                tap(userInfo => {
-                    const user = userInfo[0];
+                .pipe(
+                    tap(userInfo => {
+                        const user = userInfo[0];
 
-                    if (user.password === password) {
-                        const userName = {
-                            firstName: user.firstName,
-                            lastName: user.lastName
-                        };
+                        if (user && user.password === password) {
+                            const userName = {
+                                firstName: user.firstName,
+                                lastName: user.lastName
+                            };
 
-                        this.store$.dispatch(SaveUserName({ userName }));
-                        this.authService.storeUserInfo(userName);
+                            this.store$.dispatch(SaveUserName({ userName }));
+                            this.authService.storeUserInfo(userName);
 
-                        this.router.navigate(['/Courses']);
-            }}));
+                            this.router.navigate(['/Courses']);
+                        }
+                }));
         })),
         { dispatch: false }
     );

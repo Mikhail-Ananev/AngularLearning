@@ -1,2 +1,4 @@
-<input type="number" [(ngModel)]="duration" />
-{{duration | hoursMinutes}}
+<div [formGroup]="durationForm">
+    <input type="number" formControlName="time" />
+    {{durationForm.get('time').value | hoursMinutes}}    
+</div>

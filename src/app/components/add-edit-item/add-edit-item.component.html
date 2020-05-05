@@ -1,26 +1,83 @@
-<div class="content">
+<form [formGroup]="addEditForm" class="content" (ngSubmit)="saveCourse">
     <div>
         <p>Title:</p>
-        <input type="text" [(ngModel)]="course.title" />
+        <span
+            class="error-color"
+            *ngIf="titleControls.touched && titleControls.errors?.required">
+            *required
+        </span>
+        <span
+            class="error-color"
+            *ngIf="titleControls.touched && titleControls.errors?.maxlength">
+            The title should be less than 50 symbols.
+        </span>
+        
+        <input type="text" formControlName="title" />
     </div>
     <div>
         <p>Description:</p>
-        <textarea rows="4" [(ngModel)]="course.description"></textarea>
+        <span
+            class="error-color"
+            *ngIf="descriptionControls.touched && descriptionControls.errors?.required">
+            *required
+        </span>
+        <span
+            class="error-color"
+            *ngIf="descriptionControls.touched && descriptionControls.errors?.maxlength">
+            The title should be less than 500 symbols.
+        </span>
+
+        <textarea rows="4" formControlName="description"></textarea>
     </div>
-    <div>
+    <div formGroupName="date">
         <p>Date:</p>
-        <input type="date" [(ngModel)]="creationDate" />
+        <span
+            class="error-color"
+            *ngIf="creationDateControls.touched && creationDateControls.errors?.required">
+            *required
+        </span>
+        <span
+            class="error-color"
+            *ngIf="creationDateControls.touched && creationDateControls.errors?.pattern">
+            The date should be in the DD/MM/YYYY format.
+        </span>
+
+        <app-input-creation-date [creationDateForm]="formControls.date"></app-input-creation-date>
     </div>
-    <div>
+    <div formGroupName="duration">
         <p>Duration:</p>
-        <app-input-duration [(duration)]="course.duration"></app-input-duration>
+        <span
+            class="error-color"
+            *ngIf="durationControls.touched && durationControls.errors?.required">
+            *required
+        </span>
+        <span
+            class="error-color"
+            *ngIf="durationControls.touched && durationControls.errors?.durationTime">
+            The duration should be more than 0.
+        </span>
+        
+        <app-input-duration [durationForm]="formControls.duration"></app-input-duration>
     </div>
-    <div>
+    <div formGroupName="authors">
         <p>Authors:</p>
-        <input type="text" />
+        <span
+            class="error-color"
+            *ngIf="authorsControls.touched && authorsControls.errors?.authorLength">
+            You should chose at least one author.
+        </span>
+
+        <app-input-authors
+            [authorsForm]="formControls.authors"
+            [authorsList]="authors"
+            (addAuthorEvent)="addAuthor($event)"
+            (deleteAuthorEvent)="deleteAuthor($event)"
+        >
+        </app-input-authors>
     </div>
+
     <div class="content_actions">
-        <input type="submit" value="Save" class="action_save" (click)="saveCourse()" />
+        <input [disabled]="!addEditForm.valid" type="submit" value="Save" class="action_save" (click)="saveCourse()" />
         <input type="button" value="Cancel" class="action_cancel" (click)="cancelCreation()" />
     </div>
-</div>
+</form>
