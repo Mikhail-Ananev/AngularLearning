@@ -5,6 +5,7 @@ export interface CourseInfo {
     duration: number;
     description: string;
     topRated?: boolean;
+    authors?: Author[];
 }
 
 export interface CourseMinInfo {
@@ -53,4 +54,8 @@ export interface AppState {
 export interface CourseRequestParams {
     start: number;
     filter: string;
+}
+
+export interface Author {
+    name: string;
 }

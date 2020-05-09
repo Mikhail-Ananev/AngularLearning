@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../models/interfaces';
 import { ClearUserName, Login } from '../../store/actions/user.action';
 import { ClearCoursesList } from '../../store/actions/courses.action';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-authentication',
@@ -11,17 +12,27 @@ import { ClearCoursesList } from '../../store/actions/courses.action';
   styleUrls: ['./authentication.component.scss']
 })
 export class AuthenticationComponent implements OnInit {
-  public loginName: string;
-  public loginPassword: string;
+  public loginForm: FormGroup;
 
-  constructor(private store$: Store<AppState>) { }
+  constructor(
+    private store$: Store<AppState>,
+    private fb: FormBuilder,
+  ) { }
 
   public ngOnInit() {
     this.store$.dispatch(ClearUserName());
     this.store$.dispatch(ClearCoursesList());
+
+    this.loginForm = this.fb.group({
+      loginName: ['', Validators.required],
+      loginPassword: ['', Validators.required],
+    });
   }
 
   public login() {
-    this.store$.dispatch(Login({ email: this.loginName, password: this.loginPassword}));
+    this.store$.dispatch(Login({
+      email: this.loginForm.get('loginName').value,
+      password: this.loginForm.get('loginPassword').value
+    }));
   }
 }

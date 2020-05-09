@@ -1,0 +1,14 @@
+<div [formGroup]="authorsForm" class="authors_content">
+    <app-author
+        *ngFor="let author of authorsList"
+        [author]="author"
+        (deleteAuthorEvent)="deleteAuthor($event)"
+    >
+    </app-author>
+    <input formControlName="author" type="text" />
+    <ul class="author-list">
+        <li *ngFor="let author of authors" (click)="addAuthor(author)">
+            {{author.name}}
+        </li>
+    </ul>
+</div>

@@ -47,8 +47,4 @@ export class CoursesService {
 
     return this.http.delete(url);
   }
-
-  public generateNewCourseId(): number {
-    return new Date().getMilliseconds();
-  }
 }
