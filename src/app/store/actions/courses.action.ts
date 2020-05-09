@@ -9,8 +9,11 @@ export enum CoursesActions {
     GetCourseComplete = '[Courses] Get course complete',
     ClearCoursesList = '[Courses] Clear courses list',
     CreateCourse = '[Courses] Create new course',
+    CreateCourseComplete = '[Courses] Create new course complete',
     UpdateCourse = '[Courses] Update course',
+    UpdateCourseComplete = '[Courses] Update course complete',
     DeleteCourse = '[Courses] Delete course',
+    DeleteCourseComplete = '[Courses] Delete course complete',
     ClearCurrentCourseState = '[Courses] Clear current course state',
 }
 
@@ -43,14 +46,26 @@ export const CreateCourse = createAction(
     props<{course: CourseInfo}>()
 );
 
+export const CreateCourseComplete = createAction(
+    CoursesActions.CreateCourseComplete,
+);
+
 export const UpdateCourse = createAction(
     CoursesActions.UpdateCourse,
     props<{course: CourseInfo}>()
 );
 
+export const UpdateCourseComplete = createAction(
+    CoursesActions.UpdateCourseComplete,
+);
+
 export const DeleteCourse = createAction(
     CoursesActions.DeleteCourse,
     props<{courseId: number}>()
+);
+
+export const DeleteCourseComplete = createAction(
+    CoursesActions.DeleteCourseComplete,
 );
 
 export const ClearCurrentCourseState = createAction(

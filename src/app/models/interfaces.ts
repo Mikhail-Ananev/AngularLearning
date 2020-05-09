@@ -39,16 +39,12 @@ export interface UserState {
 export interface CoursesState {
     courses: CourseInfo[];
     currentCourse: CourseInfo;
-}
-
-export interface LoadingState {
     loading: boolean;
 }
 
 export interface AppState {
     courses: CoursesState;
     user: UserState;
-    loading: LoadingState;
 }
 
 export interface CourseRequestParams {
