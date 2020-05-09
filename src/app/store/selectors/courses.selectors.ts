@@ -1,6 +1,6 @@
 import { createSelector } from '@ngrx/store';
 
-import { AppState, CoursesState } from '../../models/interfaces';
+import { AppState, CoursesState, CourseInfo } from '../../models/interfaces';
 
 
 const selectCourses = (state: AppState) => state.courses;
@@ -12,10 +12,10 @@ export const selectCoursesList = createSelector(
 
 export const selectCurrentCourse = createSelector(
     selectCourses,
-    (state: CoursesState) => state.currentCourse
+    (state: CoursesState): CourseInfo => state.currentCourse
 );
 
 export const selectLoadingCourse = createSelector(
     selectCourses,
-    (state: CoursesState) => state.loading
+    (state: CoursesState): boolean => state.loading
 );
