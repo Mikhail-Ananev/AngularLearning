@@ -152,6 +152,7 @@ export class AddEditItemComponent implements OnInit {
 
     this.courseId = course.id;
     this.authors = course.authors ? course.authors : [];
+    this.authorsControls.updateValueAndValidity();
   }
 
   private createDateFormat(date: Date): string {
