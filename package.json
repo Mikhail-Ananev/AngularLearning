@@ -27,6 +27,8 @@
     "@ngrx/effects": "^9.1.0",
     "@ngrx/store": "^9.1.0",
     "@ngrx/store-devtools": "^9.1.0",
+    "@ngx-translate/core": "^12.1.2",
+    "@ngx-translate/http-loader": "^4.0.0",
     "angular-font-awesome": "^3.1.2",
     "font-awesome": "^4.7.0",
     "json-server": "^0.16.1",

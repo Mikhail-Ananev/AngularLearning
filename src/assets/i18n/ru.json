@@ -1,0 +1,11 @@
+{
+    "HEADER": {
+        "LOG_OFF_MESSAGE": "Выйти"
+    },
+    "COURSES": {
+        "ADD_ITEM_MESSAGE": "Добавить",
+        "EDIT_ITEM_MESSAGE": "Редакция",
+        "DELETE_ITEM_MESSAGE": "Удалить",
+        "LOAD_MORE_ITEMS_MESSAGE": "Загрузить больше"
+    }
+}

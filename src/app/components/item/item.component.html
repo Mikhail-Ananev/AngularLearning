@@ -31,11 +31,11 @@
     <div class="item_button-block">
         <div>
             <i class="fa fa-edit"></i>
-            <input type="button" value="Edit" (click)="editCourse(course.title, course.id)"/>
+            <button (click)="editCourse(course.title, course.id)">{{ "COURSES.EDIT_ITEM_MESSAGE" | translate }}</button>
         </div>
         <div>
             <i class="fa fa-trash"></i>
-            <input type="button" value="Delete" (click)="deleteCourse(course.id)" />
+            <button (click)="deleteCourse(course.id)">{{ "COURSES.DELETE_ITEM_MESSAGE" | translate }}</button>
         </div>
     </div>
 </div>

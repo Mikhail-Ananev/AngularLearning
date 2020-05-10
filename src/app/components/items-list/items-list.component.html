@@ -1,7 +1,7 @@
 <div class="items">
     <div class="items_add-button">
         <i class="fa fa-plus"></i>
-        <input type="button" value="Add item" (click)="openCreatePage()" />
+        <button (click)="openCreatePage()">{{ "COURSES.ADD_ITEM_MESSAGE" | translate }}</button>
     </div>
     <app-item
         class="items_list items_container"
@@ -13,7 +13,7 @@
     </app-item>
     <div *ngIf="courses.length === 0" class="items_empty">NO DATA. FEEL FREE TO ADD NEW COURSE</div>
     <div *ngIf="courses.length >= 4" class="items_empty">
-        <a href="#" (click)="loadMoreCourses($event)">Load more</a>
+        <a href="#" (click)="loadMoreCourses($event)">{{ "COURSES.LOAD_MORE_ITEMS_MESSAGE" | translate }}</a>
     </div>
 </div>
 <app-confirm-delete

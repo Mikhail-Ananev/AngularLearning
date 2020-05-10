@@ -1,4 +1,6 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+
 import { CourseInfo, CourseMinInfo } from '../../models/interfaces';
 
 @Component({
@@ -16,7 +18,9 @@ export class ItemComponent {
 
   private courseMinInfo: CourseMinInfo;
 
-  constructor() { }
+  constructor(
+    public translateService: TranslateService
+  ) { }
 
   public deleteCourse(id: number) {
     this.deleteEvent.emit(id);
