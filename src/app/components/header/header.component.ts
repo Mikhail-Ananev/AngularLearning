@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { Store, select } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 
 import { AppState, UserState } from '../../models/interfaces';
 import { selectUser, selectUserAuthenticated } from '../../store/selectors/user.selectors';
@@ -22,9 +23,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(
     private store$: Store<AppState>,
+    public translateService: TranslateService
   ) { }
 
   public ngOnInit(): void {
+    this.translateService.addLangs(['en', 'fr', 'ru']);
+
     this.store$.dispatch(InitUserInfo());
     this.store$.pipe(select(selectUserAuthenticated))
       .subscribe(isAuth => this.isAuthenticated = isAuth);
@@ -49,5 +53,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   public ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+  }
+
+  public translate(lang: string) {
+    this.translateService.use(lang);
   }
 }

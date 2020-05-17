@@ -10,4 +10,5 @@ export const initialCoursesState: CoursesState = {
         creationDate: new Date(),
         authors: []
     },
+    loading: false,
 };

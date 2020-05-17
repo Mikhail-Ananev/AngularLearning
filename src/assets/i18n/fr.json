@@ -1,0 +1,11 @@
+{
+    "HEADER": {
+        "LOG_OFF_MESSAGE": "Se déconnecter"
+    },
+    "COURSES": {
+        "ADD_ITEM_MESSAGE": "Ajouter un item",
+        "EDIT_ITEM_MESSAGE": "Éditer",
+        "DELETE_ITEM_MESSAGE": "Supprimer",
+        "LOAD_MORE_ITEMS_MESSAGE": "Charger plus"
+    }
+}

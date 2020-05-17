@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Store, select } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 
 import { CourseInfo, CourseMinInfo, AppState } from '../../models/interfaces';
 import { CoursesService } from '../../services/courses.service';
@@ -28,6 +29,7 @@ export class ItemsListComponent implements OnInit, OnDestroy {
     private coursesService: CoursesService,
     private router: Router,
     private store$: Store<AppState>,
+    public translateService: TranslateService
   ) { }
 
   public ngOnInit(): void {

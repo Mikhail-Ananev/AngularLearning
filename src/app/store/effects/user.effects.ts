@@ -14,8 +14,7 @@ export class UserEffects {
     login$ = createEffect(() => this.actions$.pipe(
         ofType(Login),
         exhaustMap(({ email, password }) => {
-            return this.authService.getUserInfo(email)
-                .pipe(
+            return this.authService.getUserInfo(email).pipe(
                     tap(userInfo => {
                         const user = userInfo[0];
 

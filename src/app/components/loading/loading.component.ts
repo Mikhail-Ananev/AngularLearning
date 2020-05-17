@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 
 import { AppState } from '../../models/interfaces';
-import { selectLoadingState } from '../../store/selectors/loading.selectors';
+import { selectLoadingCourse } from '../../store/selectors/courses.selectors';
 
 @Component({
   selector: 'app-loading',
@@ -10,7 +10,7 @@ import { selectLoadingState } from '../../store/selectors/loading.selectors';
   styleUrls: ['./loading.component.scss']
 })
 export class LoadingComponent {
-  public loading = this.store.pipe(select(selectLoadingState));
+  public loading = this.store.pipe(select(selectLoadingCourse));
 
   constructor(
     private store: Store<AppState>

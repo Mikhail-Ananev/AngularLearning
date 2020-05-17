@@ -1,6 +1,19 @@
 <header>
     <div class="header-container">
-        <img src="/assets/images/logo.png" />
+        <div class="header-container_logo">
+            <img src="/assets/images/logo.png" />
+
+            <select #langSelect (change)="translate(langSelect.value)">
+                <option
+                    *ngFor="let lang of translateService.getLangs()"
+                    [value]="lang"
+                    [selected]="lang === translateService.currentLang"
+                >
+                    {{ lang }}
+                </option>
+            </select>
+        </div>
+
         <div *ngIf="isAuthenticated" class="user-container">    
             <span>
                 <fa-icon [icon]="faUser"></fa-icon>
@@ -8,7 +21,7 @@
             </span>
             <span (click)="logOff()">
                 <fa-icon [icon]="faSignOutAlt"></fa-icon>
-                Log off
+                {{ "HEADER.LOG_OFF_MESSAGE" | translate }}
             </span>
         </div>
     </div>
